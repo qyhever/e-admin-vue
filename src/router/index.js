@@ -37,6 +37,61 @@ export const constantRoutes = [
         component: () => import('@/views/dashboard')
       }
     ]
+  },
+  {
+    path: '/admin',
+    component: Layout,
+    children: [
+      {
+        name: 'admin',
+        path: '',
+        component: () => import('@/views/permission/admin')
+      }
+    ]
+  },
+  {
+    path: '/dev',
+    component: Layout,
+    children: [
+      {
+        name: 'dev',
+        path: '',
+        component: () => import('@/views/permission/dev')
+      }
+    ]
+  },
+  {
+    path: '/guest',
+    component: Layout,
+    children: [
+      {
+        name: 'guest',
+        path: '',
+        component: () => import('@/views/permission/guest')
+      }
+    ]
+  },
+  {
+    path: '/test',
+    component: Layout,
+    children: [
+      {
+        name: 'test',
+        path: '',
+        component: () => import('@/views/permission/test')
+      }
+    ]
+  },
+  {
+    path: '/operation',
+    component: Layout,
+    children: [
+      {
+        name: 'operation',
+        path: '',
+        component: () => import('@/views/permission/operation')
+      }
+    ]
   }
 ]
 

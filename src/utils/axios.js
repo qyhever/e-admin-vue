@@ -10,15 +10,6 @@ const instance = axios.create({
   baseURL
 })
 
-const toLogin = () => {
-  store.dispatch('logout').then(() => {
-    router.replace({
-      path: '/login',
-      query: { redirect: router.currentRoute.fullPath }
-    })
-  })
-}
-
 instance.interceptors.request.use(config => {
   const token = getToken()
   if (token) {
@@ -46,7 +37,12 @@ instance.interceptors.response.use(response => {
     // const msg = error.response.data.msg
     if (status === 401) {
       Message.warning('登录状态失效，请重新登录')
-      toLogin()
+      store.dispatch('user/resetToken').then(() => {
+        router.replace({
+          path: '/login',
+          query: { redirect: router.currentRoute.fullPath }
+        })
+      })
     }
   
     if (status === 404) {
