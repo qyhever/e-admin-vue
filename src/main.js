@@ -3,6 +3,10 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import 'normalize.css'
+import './assets/styles/index.scss'
+
+import './router/permission'
 import Element from 'element-ui'
 import './assets/styles/element-variables.scss'
 Vue.use(Element)
