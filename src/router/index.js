@@ -34,7 +34,11 @@ export const constantRoutes = [
       {
         name: 'dashboard',
         path: '',
-        component: () => import('@/views/dashboard')
+        component: () => import('@/views/dashboard'),
+        meta: {
+          title: '仪表盘',
+          icon: 'el-icon-s-home'
+        }
       }
     ]
   }
