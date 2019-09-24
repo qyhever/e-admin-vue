@@ -8,7 +8,10 @@ Vue.use(Router)
 export const constantRoutes = [
   {
     path: '/',
-    redirect: '/dashboard'
+    redirect: '/dashboard',
+    meta: {
+      hidden: true
+    }
   },
   {
     path: '/login',
@@ -16,7 +19,7 @@ export const constantRoutes = [
     component: () => import('@/views/login'),
     meta: {
       title: '登录',
-      hide: true
+      hidden: true
     }
   },
   {
@@ -24,21 +27,141 @@ export const constantRoutes = [
     component: () => import('@/views/exception/exception404'),
     meta: {
       title: '404',
-      hide: true
+      hidden: true
     }
   },
   {
-    path: '/dashboard',
+    path: '/',
     component: Layout,
     children: [
       {
         name: 'dashboard',
-        path: '',
+        path: '/dashboard',
         component: () => import('@/views/dashboard'),
         meta: {
           title: '仪表盘',
           icon: 'el-icon-s-home'
         }
+      }
+    ]
+  },
+  {
+    path: '/user',
+    component: Layout,
+    children: [
+      {
+        name: 'user',
+        path: 'index',
+        component: () => import('@/views/user'),
+        meta: {
+          title: '账号管理',
+          icon: 'el-icon-s-home'
+        }
+      }
+    ]
+  },
+  {
+    path: '/role',
+    component: Layout,
+    children: [
+      {
+        name: 'role',
+        path: 'index',
+        component: () => import('@/views/role'),
+        meta: {
+          title: '角色管理',
+          icon: 'el-icon-s-home'
+        }
+      }
+    ]
+  },
+  {
+    path: '/route',
+    component: Layout,
+    children: [
+      {
+        name: 'route',
+        path: 'index',
+        component: () => import('@/views/route'),
+        meta: {
+          title: '路由管理',
+          icon: 'el-icon-s-home'
+        }
+      }
+    ]
+  },
+  {
+    path: '/admin',
+    component: Layout,
+    children: [
+      {
+        name: 'admin',
+        path: 'index',
+        meta: {
+          title: 'admin页面',
+          icon: 'el-icon-s-home'
+        },
+        component: () => import('@/views/permission/admin')
+      }
+    ]
+  },
+  {
+    path: '/dev',
+    component: Layout,
+    children: [
+      {
+        name: 'dev',
+        path: 'index',
+        meta: {
+          title: 'dev页面',
+          icon: 'el-icon-s-home'
+        },
+        component: () => import('@/views/permission/dev')
+      }
+    ]
+  },
+  {
+    path: '/guest',
+    component: Layout,
+    children: [
+      {
+        name: 'guest',
+        path: 'index',
+        meta: {
+          title: 'guest页面',
+          icon: 'el-icon-s-home'
+        },
+        component: () => import('@/views/permission/guest')
+      }
+    ]
+  },
+  {
+    path: '/test',
+    component: Layout,
+    children: [
+      {
+        name: 'test',
+        path: 'index',
+        meta: {
+          title: 'test页面',
+          icon: 'el-icon-s-home'
+        },
+        component: () => import('@/views/permission/test')
+      }
+    ]
+  },
+  {
+    path: '/operation',
+    component: Layout,
+    children: [
+      {
+        name: 'operation',
+        path: 'index',
+        meta: {
+          title: 'operation页面',
+          icon: 'el-icon-s-home'
+        },
+        component: () => import('@/views/permission/operation')
       }
     ]
   }

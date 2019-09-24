@@ -44,7 +44,7 @@ export default {
     return {
       form: {
         userName: 'admin',
-        password: 'admin'
+        password: '123456'
       },
       rules: {
         userName: [ { required: true, message: '请输入用户名!' } ],

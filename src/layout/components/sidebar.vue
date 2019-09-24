@@ -4,13 +4,75 @@
       <img class="image" src="@/assets/images/logo.png" alt="加载失败" title="后台管理系统">
       <h1 class="title">后台管理系统</h1>
     </router-link>
-    sidebar
+    <el-scrollbar wrap-class="scrollbar-wrapper">
+      <el-menu
+        :default-active="activeMenu()"
+        :collapse="collapse"
+        background-color="transparent"
+        text-color="#fff"
+        :unique-opened="false"
+        active-text-color="#fff"
+        :collapse-transition="false"
+        mode="vertical"
+        router
+      >
+        <!-- <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" /> -->
+        <template v-for="item in routes">
+          <template v-if="item.children && item.children.length > 1">
+            <el-submenu :index="item.path" :key="item.path">
+              <template slot="title">
+                <!-- <svg-icon :icon-class="item.meta.icon" class="icon"></svg-icon> -->
+                <span>{{item.meta.title}}</span>
+              </template>
+              <el-menu-item v-for="(subItem) in item.children" :key="subItem.path" :index="subItem.path">
+                {{subItem.meta.title}}
+              </el-menu-item>
+            </el-submenu>
+          </template>
+          <template v-else>
+            <el-menu-item :index="item.children[0].path" :key="resolvePath(item, )">
+              <!-- <svg-icon :icon-class="item.children[0].meta.icon" class="icon"></svg-icon> -->
+              <span>{{item.children[0].meta.title}}</span>
+            </el-menu-item>
+          </template>
+        </template>
+      </el-menu>
+    </el-scrollbar>
   </div>
 </template>
 
 <script>
+import path from 'path'
+import { mapGetters } from 'vuex'
+// constantRoutes.filter(item => !!item.children)
 export default {
-  name: 'sidebar'
+  name: 'sidebar',
+  data() {
+    return {
+      // routes: [],
+      collapse: false
+    }
+  },
+  computed: {
+    ...mapGetters([ 'constantRoutes' ]),
+    routes() {
+      return this.constantRoutes.filter(item => !!item.children)
+    }
+  },
+  mounted() {
+    // console.log(this.constantRoutes)
+  },
+  methods: {
+    activeMenu() {
+      const { meta, path } = this.$route
+      // if set activeMenu, the sidebar will highlight the path you set
+      if (meta && meta.activeMenu) {
+        return meta.activeMenu
+      }
+      return path
+    },
+    resolvePath() {}
+  }
 }
 </script>
 
@@ -27,6 +89,14 @@ export default {
     transition: width 0.3s;
     font-size: 0;
     overflow: hidden;
+    /deep/ .el-menu {
+      .el-menu-item:hover, .el-menu-item:focus {
+        background-color: transparent !important;
+      }
+      .el-menu-item.is-active {
+        background-color: #1890FF;
+      }
+    }
   }
   .logo-container {
     display: block;
