@@ -9,27 +9,28 @@ export const constantRoutes = [
   {
     path: '/',
     redirect: '/dashboard',
-    meta: {
-      hidden: true
-    }
+    hidden: true
   },
   {
     path: '/login',
     name: 'Login',
+    hidden: true,
     component: () => import('@/views/login'),
     meta: {
-      title: '登录',
-      hidden: true
+      title: '登录'
     }
   },
   {
     path: '/404',
+    hidden: true,
     component: () => import('@/views/exception/exception404'),
     meta: {
-      title: '404',
-      hidden: true
+      title: '404'
     }
-  },
+  }
+]
+
+export const asyncRoutes = [
   {
     path: '/',
     component: Layout,
@@ -40,7 +41,7 @@ export const constantRoutes = [
         component: () => import('@/views/dashboard'),
         meta: {
           title: '仪表盘',
-          icon: 'el-icon-s-home'
+          icon: 'dashboard'
         }
       }
     ]
@@ -55,7 +56,7 @@ export const constantRoutes = [
         component: () => import('@/views/user'),
         meta: {
           title: '账号管理',
-          icon: 'el-icon-s-home'
+          icon: 'dashboard'
         }
       }
     ]
@@ -70,22 +71,22 @@ export const constantRoutes = [
         component: () => import('@/views/role'),
         meta: {
           title: '角色管理',
-          icon: 'el-icon-s-home'
+          icon: 'dashboard'
         }
       }
     ]
   },
   {
-    path: '/route',
+    path: '/resource',
     component: Layout,
     children: [
       {
-        name: 'route',
+        name: 'resource',
         path: 'index',
-        component: () => import('@/views/route'),
+        component: () => import('@/views/resource'),
         meta: {
-          title: '路由管理',
-          icon: 'el-icon-s-home'
+          title: '权限管理',
+          icon: 'dashboard'
         }
       }
     ]
@@ -99,7 +100,7 @@ export const constantRoutes = [
         path: 'index',
         meta: {
           title: 'admin页面',
-          icon: 'el-icon-s-home'
+          icon: 'dashboard'
         },
         component: () => import('@/views/permission/admin')
       }
@@ -114,7 +115,7 @@ export const constantRoutes = [
         path: 'index',
         meta: {
           title: 'dev页面',
-          icon: 'el-icon-s-home'
+          icon: 'dashboard'
         },
         component: () => import('@/views/permission/dev')
       }
@@ -129,7 +130,7 @@ export const constantRoutes = [
         path: 'index',
         meta: {
           title: 'guest页面',
-          icon: 'el-icon-s-home'
+          icon: 'dashboard'
         },
         component: () => import('@/views/permission/guest')
       }
@@ -144,7 +145,7 @@ export const constantRoutes = [
         path: 'index',
         meta: {
           title: 'test页面',
-          icon: 'el-icon-s-home'
+          icon: 'dashboard'
         },
         component: () => import('@/views/permission/test')
       }
@@ -159,7 +160,7 @@ export const constantRoutes = [
         path: 'index',
         meta: {
           title: 'operation页面',
-          icon: 'el-icon-s-home'
+          icon: 'dashboard'
         },
         component: () => import('@/views/permission/operation')
       }

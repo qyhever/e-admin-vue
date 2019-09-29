@@ -8,7 +8,7 @@
       <el-menu
         :default-active="activeMenu()"
         :collapse="collapse"
-        background-color="transparent"
+        background-color="#161B37"
         text-color="#fff"
         :unique-opened="false"
         active-text-color="#fff"
@@ -16,12 +16,11 @@
         mode="vertical"
         router
       >
-        <!-- <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" /> -->
-        <template v-for="item in routes">
+        <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" />
+        <!-- <template v-for="item in routes">
           <template v-if="item.children && item.children.length > 1">
             <el-submenu :index="item.path" :key="item.path">
               <template slot="title">
-                <!-- <svg-icon :icon-class="item.meta.icon" class="icon"></svg-icon> -->
                 <span>{{item.meta.title}}</span>
               </template>
               <el-menu-item v-for="(subItem) in item.children" :key="subItem.path" :index="subItem.path">
@@ -30,26 +29,26 @@
             </el-submenu>
           </template>
           <template v-else>
-            <el-menu-item :index="item.children[0].path" :key="resolvePath(item, )">
-              <!-- <svg-icon :icon-class="item.children[0].meta.icon" class="icon"></svg-icon> -->
+            <el-menu-item :index="item.children[0].path" :key="item.children[0].path">
               <span>{{item.children[0].meta.title}}</span>
             </el-menu-item>
           </template>
-        </template>
+        </template> -->
       </el-menu>
     </el-scrollbar>
   </div>
 </template>
 
 <script>
-import path from 'path'
 import { mapGetters } from 'vuex'
-// constantRoutes.filter(item => !!item.children)
+import SidebarItem from './sidebar-item'
 export default {
   name: 'sidebar',
+  components: {
+    SidebarItem
+  },
   data() {
     return {
-      // routes: [],
       collapse: false
     }
   },
@@ -70,8 +69,7 @@ export default {
         return meta.activeMenu
       }
       return path
-    },
-    resolvePath() {}
+    }
   }
 }
 </script>
@@ -90,11 +88,16 @@ export default {
     font-size: 0;
     overflow: hidden;
     /deep/ .el-menu {
-      .el-menu-item:hover, .el-menu-item:focus {
-        background-color: transparent !important;
-      }
-      .el-menu-item.is-active {
-        background-color: #1890FF;
+      border-right: 0;
+      .el-menu-item {
+        height: 50px;
+        line-height: 50px;
+        &.is-active, &.is-active:hover, &:focus {
+          background-color: #1890FF !important;
+        }
+        &:hover {
+          background-color: #0b1133 !important
+        }
       }
     }
   }

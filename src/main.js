@@ -7,6 +7,7 @@ import 'normalize.css'
 import './assets/styles/index.scss'
 
 import './router/permission'
+import './icons'
 import Element from 'element-ui'
 import './assets/styles/element-variables.scss'
 Vue.use(Element)

@@ -1,19 +1,16 @@
 <template>
-  <div v-if="item.meta && !item.meta.hidden" class="menu-wrapper">
+  <div v-if="!item.hidden" class="menu-wrapper">
     <template v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow">
       <router-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
         <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
-          <!-- <item :icon="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" :title="onlyOneChild.meta.title" /> -->
-          <!-- <svg-icon :icon-class="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)"/> -->
-          <span slot='title'>{{onlyOneChild.meta.title}}</span>
+          <item :icon="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" :title="onlyOneChild.meta.title" />
         </el-menu-item>
       </router-link>
     </template>
  
     <el-submenu v-else ref="subMenu" :index="resolvePath(item.path)" popper-append-to-body>
       <template slot="title" v-if="item.meta">
-        <!-- <item v-if="item.meta" :icon="item.meta && item.meta.icon" :title="item.meta.title" /> -->
-        <span>{{item.meta.title}}</span>
+        <item v-if="item.meta" :icon="item.meta && item.meta.icon" :title="item.meta.title" />
       </template>
       <sidebar-item
         v-for="child in item.children"
@@ -29,6 +26,8 @@
 
 <script>
 import path from 'path'
+import { isExternal } from '@/utils/validate'
+import Item from './item'
 export default {
   props: {
     // route object
@@ -44,6 +43,9 @@ export default {
       type: String,
       default: ''
     }
+  },
+  components: {
+    Item
   },
   data() {
     this.onlyOneChild = null
