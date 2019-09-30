@@ -35,9 +35,10 @@ export default {
   transition: margin-left 0.3s;
 }
 .main {
+  position: relative;
   min-height: calc(100vh - 127px);
   width: 100%;
-  position: relative;
+  padding: 20px;
   overflow: hidden;
 }
 </style>

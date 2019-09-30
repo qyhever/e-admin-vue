@@ -16,7 +16,7 @@
         mode="vertical"
         router
       >
-        <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" />
+        <sidebar-item v-for="(route, index) in routes" :key="index" :item="route" :base-path="route.path" />
         <!-- <template v-for="item in routes">
           <template v-if="item.children && item.children.length > 1">
             <el-submenu :index="item.path" :key="item.path">
@@ -53,10 +53,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([ 'constantRoutes' ]),
-    routes() {
-      return this.constantRoutes.filter(item => !!item.children)
-    }
+    ...mapGetters([ 'routes' ])
   },
   mounted() {
     // console.log(this.constantRoutes)

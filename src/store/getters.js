@@ -3,6 +3,6 @@ const getters = {
   loading: state => state.app.loading,
   userInfo: state => state.user.info,
   roles: state => state.user.roles,
-  constantRoutes: state => state.app.constantRoutes
+  routes: state => state.permission.routes
 }
 export default getters

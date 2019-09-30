@@ -29,6 +29,7 @@ import path from 'path'
 import { isExternal } from '@/utils/validate'
 import Item from './item'
 export default {
+  name: 'SidebarItem',
   props: {
     // route object
     item: {

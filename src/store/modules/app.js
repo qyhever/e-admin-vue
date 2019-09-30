@@ -1,9 +1,7 @@
 import { getCollapsed, setCollapsed } from '@/utils/local'
-import { constantRoutes } from '@/router'
 const state = {
   collapsed: getCollapsed() || false,
-  loading: false,
-  constantRoutes
+  loading: false
 }
 
 const mutations = {

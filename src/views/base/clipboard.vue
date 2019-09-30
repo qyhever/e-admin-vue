@@ -1,5 +1,5 @@
 <template>
   <div>
-    user
+    clipboard
   </div>
 </template>

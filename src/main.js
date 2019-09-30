@@ -3,13 +3,15 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import './router/permission'
+import './icons'
+import './plugins'
+import Element from 'element-ui'
+import './assets/styles/element-variables.scss'
+
 import 'normalize.css'
 import './assets/styles/index.scss'
 
-import './router/permission'
-import './icons'
-import Element from 'element-ui'
-import './assets/styles/element-variables.scss'
 Vue.use(Element)
 
 new Vue({

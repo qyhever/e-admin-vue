@@ -47,6 +47,33 @@ export const asyncRoutes = [
     ]
   },
   {
+    path: '/components',
+    redirect: '/components/clipboard',
+    component: Layout,
+    meta: {
+      title: '组件',
+      icon: 'dashboard'
+    },
+    children: [
+      {
+        name: 'clipboard',
+        path: 'clipboard',
+        component: () => import('@/views/base/clipboard'),
+        meta: {
+          title: '复制'
+        }
+      },
+      {
+        name: 'qrcode',
+        path: 'qrcode',
+        component: () => import('@/views/base/qrcode'),
+        meta: {
+          title: '二维码'
+        }
+      }
+    ]
+  },
+  {
     path: '/user',
     component: Layout,
     children: [
