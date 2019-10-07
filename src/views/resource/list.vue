@@ -16,8 +16,8 @@
           <el-form-item label="类型">
             <el-select v-model="params.type" style="width: 100%">
               <el-option label="全部" value="" />
-              <el-option label="目录" value="dir" />
-              <el-option label="资源" value="resource" />
+              <el-option label="目录" value="1" />
+              <el-option label="资源" value="2" />
             </el-select>
           </el-form-item>
         </el-col>
@@ -29,12 +29,31 @@
         </el-col>
       </el-row>
     </el-form>
-    <el-table class="com-table" :data="list" v-loading="querying">
+    <el-table
+      class="com-table"
+      :data="list"
+      v-loading="querying"
+      @sort-change="handleSortChange">
 			<el-table-column align="center" prop="name" label="权限名" />
-			<el-table-column align="center" prop="code" label="权限编码" />
+			<el-table-column align="center" prop="code" label="权限编码" sortable="custom" />
 			<el-table-column align="center" label="类型">
         <template slot-scope="{row}">
-          <span>{{row.parentId ? '目录' : '资源'}}</span>
+          <span>{{row.type === '1' ? '目录' : '资源'}}</span>
+        </template>
+			</el-table-column>
+      <el-table-column align="center" label="启用状态">
+        <template slot-scope="{row}">
+          <el-switch :value="row.enable" @change="handleToggleEnable(row)" />
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="添加时间" prop="createdAt" sortable="custom">
+        <template slot-scope="{row}">
+          {{row.createdAt | formatDateTime}}
+        </template>
+			</el-table-column>
+      <el-table-column align="center" label="修改时间" prop="updatedAt" sortable="custom">
+        <template slot-scope="{row}">
+          {{row.updatedAt | formatDateTime}}
         </template>
 			</el-table-column>
 			<el-table-column align="center" label="操作">
@@ -61,12 +80,12 @@
 			:layout="paginationLayout"
 			:total="total">
 		</el-pagination>
-    <edit ref="dialog" />
+    <edit ref="dialog" @success="query" />
   </div>
 </template>
 
 <script>
-import { getResources } from '@/api/resource'
+import { getResources, patchResource, deleteResource } from '@/api/resource'
 import { pagination } from '@/mixins'
 import Edit from './components/edit'
 export default {
@@ -96,10 +115,10 @@ export default {
       try {
         this.querying = true
         const res = await getResources(this.params)
-        console.log(res)
         if (res.success) {
-          const list = res.list || []
-          const total = res.total || 0
+          const data = res.data || {}
+          const list = data.list || []
+          const total = data.total || 0
           this.list = list
           this.total = total
         }
@@ -109,22 +128,73 @@ export default {
         this.querying = false
       }
     },
+    handleSortChange(sort) {
+      this.params.page = 1
+      this.params.size = 10
+      if (sort.prop && sort.order) {
+        this.params.sortProp = sort.prop
+        this.params.sortOrder = sort.order === 'ascending' ? 1 : -1
+      } else {
+        this.params.sortProp = null
+        this.params.sortOrder = null
+      }
+      this.query()
+    },
     handleCreate() {
-      // ...
+      this.$refs.dialog.open()
     },
     handleEdit(row) {
-      console.log(row)
+      this.$refs.dialog.open(row)
+    },
+    async handleToggleEnable(row) {
+      try {
+        const res = await patchResource({
+          id: row.id,
+          enable: !row.enable
+        })
+        console.log(res)
+        if (res.success) {
+          this.list = this.list.map(item => {
+            if (item.id === row.id) {
+              return {
+                ...item,
+                enable: !item.enable
+              }
+            }
+            return item
+          })
+          this.$message.closeAll()
+          this.$message.success('操作成功')
+        }
+      } catch (err) {
+        console.log(err)
+      } finally {
+        // ...
+      }
     },
     handleDelete(row) {
       console.log(row)
-      const msg = row.parentId ? '该资源为目录权限，删除该目录会删除下面全部子权限，是否确定删除？' : '确定要删除吗？'
+      const msg = row.type === '2' ? '确定要删除吗？' : '该资源为目录权限，删除该目录会删除下面全部子权限，是否确定删除？' 
       this.$confirm(msg, '温馨提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
-      }).then(() => {
-        // ...
-      })
+      }).then(async () => {
+        try {
+          const res = await deleteResource({
+            id: row.id
+          })
+          if (res.success) {
+            this.query()
+            this.$message.closeAll()
+            this.$message.success('删除成功')
+          }
+        } catch (err) {
+          console.log(err)
+        } finally {
+          // ...
+        }
+      }).catch(console.log)
     }
   }
 }

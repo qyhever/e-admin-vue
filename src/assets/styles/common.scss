@@ -33,6 +33,16 @@ a:hover, a:active, a:visited, a:focus {
   }
 }
 
+.com-pagination {
+  padding-top: 20px;
+  text-align: right;
+}
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
 // sidebar
 $menuText:#bfcbd9;
 $menuActiveText:#409EFF;

@@ -73,7 +73,7 @@ export default {
 
 <style lang="scss" scoped>
   .sidebar {
-    z-index: 9999;
+    z-index: 1999;
     position: fixed;
     left: 0;
     top: 0;

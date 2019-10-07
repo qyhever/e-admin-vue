@@ -7,35 +7,12 @@
 		:close-on-click-modal="dialogModalClose"
     :close-on-press-escape="dialogEscClose"
   >
-    <el-form
-      v-loading="querying"
-      class="form"
-      ref="form"
-      label-width="96px"
-      :model="form"
-      :rules="rules"
-      size="small">
-      <el-form-item label="权限名: " prop="name">
-        <el-input v-model="form.name" placeholder="请输入权限名" />
+    <el-form class="form" ref="form" label-width="96px" :model="form" :rules="rules" size="small">
+      <el-form-item label="角色名: " prop="name">
+        <el-input v-model="form.name" placeholder="请输入角色名" />
       </el-form-item>
-      <el-form-item label="权限编码: " prop="code">
-        <el-input v-model="form.code" placeholder="请输入权限编码" />
-      </el-form-item>
-      <el-form-item label="权限类型: " prop="type">
-        <el-radio-group v-model="form.type">
-          <el-radio label="1">目录</el-radio>
-          <el-radio label="2">资源</el-radio>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="父级菜单: " prop="parentId">
-        <el-select v-model="form.parentId" style="width: 100%">
-          <el-option
-            v-for="item in dirs"
-            :key="item.id"
-            :label="item.name"
-            :value="item.code"
-          />
-        </el-select>
+      <el-form-item label="角色描述: " prop="description">
+        <el-input v-model="form.description" placeholder="请输入角色描述" />
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -46,27 +23,23 @@
 </template>
 
 <script>
-import { createResource, updateResource, getDirs } from '@/api/resource'
+import { createRole, updateRole } from '@/api/role'
 export default {
   data() {
     return {
       submiting: false,
-      querying: false,
       visible: false,
       title: '添加',
       id: null,
-      dirs: [],
       form: {
         name: '',
-        code: '',
-        type: '2',
-        parentId: null
+        description: ''
       },
       rules: {
         name: [
           { required: true, message: '请输入权限名', trigger: 'blur' }
         ],
-        code: [
+        description: [
           { required: true, message: '请输入权限名', trigger: 'blur' }
         ]
       }
@@ -74,34 +47,15 @@ export default {
   },
   methods: {
     open(row) {
+      console.log(row)
       this.visible = true
       this.title = row ? '编辑' : '添加'
-      this.query()
       if (row) {
         this.id = row.id
         this.form = {
           name: row.name,
-          code: row.code,
-          type: row.type,
-          parentId: row.parentId
+          description: row.description
         }
-      }
-    },
-    async query() {
-      try {
-        this.querying = true
-        const res = await getDirs()
-        console.log(res)
-        if (res.success) {
-          this.dirs = [
-            {name: '无', code: null},
-            ...res.data
-          ]
-        }
-      } catch (err) {
-        console.log(err)
-      } finally {
-        this.querying = false
       }
     },
     onSubmit() {
@@ -110,7 +64,7 @@ export default {
           try {
             this.submiting = true
             if (this.id) {
-              const res = await updateResource({
+              const res = await updateRole({
                 ...this.form,
                 id: this.id
               })
@@ -122,7 +76,7 @@ export default {
                 this.$emit('success')
               }
             } else {
-              const res = await createResource(this.form)
+              const res = await createRole(this.form)
               if (res.success) {
                 console.log(res)
                 this.$message.closeAll()
@@ -144,9 +98,7 @@ export default {
       this.id = null
       this.form = {
         name: '',
-        code: '',
-        type: '2',
-        parentId: null
+        description: ''
       }
       this.$refs.form.clearValidate()
     }
