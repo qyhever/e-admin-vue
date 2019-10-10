@@ -8,11 +8,23 @@
     :close-on-press-escape="dialogEscClose"
   >
     <el-form class="form" ref="form" label-width="96px" :model="form" :rules="rules" size="small">
-      <el-form-item label="角色名: " prop="name">
-        <el-input v-model="form.name" placeholder="请输入角色名" />
+      <el-form-item label="头像: " prop="avatar">
+        <com-upload-image-single v-model="form.avatar"></com-upload-image-single>
       </el-form-item>
-      <el-form-item label="角色描述: " prop="description">
-        <el-input v-model="form.description" placeholder="请输入角色描述" />
+      <el-form-item label="账户名: " prop="userName">
+        <el-input v-model="form.userName" placeholder="请输入账户名" />
+      </el-form-item>
+      <el-form-item label="真实姓名: " prop="fullName">
+        <el-input v-model="form.fullName" placeholder="请输入真实姓名" />
+      </el-form-item>
+      <el-form-item v-if="!id" label="密码: " prop="password">
+        <el-input type="password" v-model="form.password" placeholder="请输入密码" />
+      </el-form-item>
+      <el-form-item label="状态: " prop="enable">
+        <el-radio-group v-model="form.enable">
+          <el-radio-button :label="true">启用</el-radio-button>
+          <el-radio-button :label="false">禁用</el-radio-button>
+        </el-radio-group>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -23,7 +35,7 @@
 </template>
 
 <script>
-import { createRole, updateRole } from '@/api/role'
+import { createUser, updateUser } from '@/api/user'
 export default {
   data() {
     return {
@@ -32,15 +44,24 @@ export default {
       title: '添加',
       id: null,
       form: {
-        name: '',
-        description: ''
+        avatar: '',
+        userName: '',
+        fullName: '',
+        password: '',
+        enable: true
       },
       rules: {
-        name: [
-          { required: true, message: '请输入权限名', trigger: 'blur' }
+        avatar: [
+          { required: true, message: '请上传头像', trigger: 'blur' }
         ],
-        description: [
-          { required: true, message: '请输入权限名', trigger: 'blur' }
+        userName: [
+          { required: true, message: '请输入账户名', trigger: 'blur' }
+        ],
+        fullName: [
+          { required: true, message: '请输入真实姓名', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' }
         ]
       }
     }
@@ -53,8 +74,10 @@ export default {
       if (row) {
         this.id = row.id
         this.form = {
-          name: row.name,
-          description: row.description
+          avatar: row.avatar,
+          userName: row.userName,
+          fullName: row.fullName,
+          enable: row.enable
         }
       }
     },
@@ -64,21 +87,19 @@ export default {
           try {
             this.submiting = true
             if (this.id) {
-              const res = await updateRole({
+              const res = await updateUser({
                 ...this.form,
                 id: this.id
               })
               if (res.success) {
-                console.log(res)
                 this.$message.closeAll()
                 this.$message.success('修改成功')
                 this.visible = false
                 this.$emit('success')
               }
             } else {
-              const res = await createRole(this.form)
+              const res = await createUser(this.form)
               if (res.success) {
-                console.log(res)
                 this.$message.closeAll()
                 this.$message.success('添加成功')
                 this.visible = false
@@ -97,11 +118,21 @@ export default {
       this.visible = false
       this.id = null
       this.form = {
-        name: '',
-        description: ''
+        avatar: '',
+        userName: '',
+        fullName: '',
+        password: '',
+        enable: true
       }
       this.$refs.form.clearValidate()
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .form {
+    width: 500px;
+    margin: 0 auto;
+  }
+</style>

@@ -182,7 +182,8 @@ export default {
       }).then(async () => {
         try {
           const res = await deleteResource({
-            id: row.id
+            id: row.id,
+            type: row.type === '2' ? 'resource' : 'dir'
           })
           if (res.success) {
             this.query()

@@ -22,3 +22,19 @@ export const getUsers = params => {
     params
   })
 }
+
+export const createUser = params => {
+  return axios({
+    method: 'post',
+    url: '/user',
+    data: params
+  })
+}
+
+export const updateUser = params => {
+  return axios({
+    method: 'put',
+    url: '/user',
+    data: params
+  })
+}

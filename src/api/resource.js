@@ -51,6 +51,7 @@ export const patchResource = params => {
 export const deleteResource = params => {
   return axios({
     method: 'delete',
-    url: `/resource/${params.id}`
+    url: `/resource/${params.id}`,
+    params
   })
 }

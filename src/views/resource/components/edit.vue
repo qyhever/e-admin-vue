@@ -27,8 +27,8 @@
           <el-radio label="2">资源</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="父级菜单: " prop="parentId">
-        <el-select v-model="form.parentId" style="width: 100%">
+      <el-form-item label="父级菜单: " prop="parentCode">
+        <el-select v-model="form.parentCode" style="width: 100%">
           <el-option
             v-for="item in dirs"
             :key="item.id"
@@ -60,7 +60,7 @@ export default {
         name: '',
         code: '',
         type: '2',
-        parentId: null
+        parentCode: null
       },
       rules: {
         name: [
@@ -83,7 +83,7 @@ export default {
           name: row.name,
           code: row.code,
           type: row.type,
-          parentId: row.parentId
+          parentCode: row.parentCode
         }
       }
     },
@@ -146,7 +146,7 @@ export default {
         name: '',
         code: '',
         type: '2',
-        parentId: null
+        parentCode: null
       }
       this.$refs.form.clearValidate()
     }

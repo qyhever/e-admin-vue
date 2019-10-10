@@ -53,7 +53,7 @@ export default {
         const res = await getTotalResources()
         if (res.success) {
           const list = res.data || []
-          const result = listToTree(list, null, 'code', 'parentId')
+          const result = listToTree(list, null, 'code', 'parentCode')
           const expandedKeys = result.map(item => item.code)
           this.list = result
           this.expandedKeys = expandedKeys

@@ -26,7 +26,6 @@ module.exports = {
   },
   // add your custom rules here
   rules: {
-    'no-console': 0,
     /**
      * 代码错误
      */
@@ -50,7 +49,8 @@ module.exports = {
     /**
      * 风格指南
      */
-    'array-bracket-spacing': ['error', 'always'], // 数组方括号内必须空格
+    // 'array-bracket-spacing': ['error', 'always'], // 数组方括号内必须空格
+    'array-bracket-spacing': 0, // 数组方括号内必须空格
     'comma-dangle': 2, // 禁止末尾逗号
     'eol-last': 2, // 要求文件末尾存在空行
     // 对象冒号前禁止空格，冒号后必须空格

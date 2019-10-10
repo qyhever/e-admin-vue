@@ -1,4 +1,5 @@
 import axios from 'axios'
+import qs from 'qs'
 import store from '@/store'
 import router from '@/router'
 import { Message } from 'element-ui'
@@ -7,7 +8,17 @@ import baseURL from '@/config/api'
 
 // axios.defaults.headers.post['Content-Type'] = 'application/json charset=UTF-8'
 const instance = axios.create({
-  baseURL
+  baseURL,
+  paramsSerializer(params) {
+    const data = {}
+    for (const k in params) {
+      const value = params[k]
+      if (value !== '' && value !== null && value !== undefined) {
+        data[k] = value
+      }
+    }
+    return qs.stringify(data, {arrayFormat: 'brackets'})
+  }
 })
 
 instance.interceptors.request.use(config => {
