@@ -30,12 +30,17 @@
       </el-table-column>
       <el-table-column align="center" label="操作">
         <template slot-scope="{row}">
-          <el-button type="text" @click="handleEdit(row)">
-            编辑
-          </el-button>
-          <el-button type="text" @click="handleDelete(row)">
-            删除
-          </el-button>
+          <template v-if="row.name === '超级管理员'">
+            -
+          </template>
+          <template v-else>
+            <el-button type="text" @click="handleEdit(row)">
+              编辑
+            </el-button>
+            <el-button type="text" @click="handleDelete(row)">
+              删除
+            </el-button>
+          </template>
         </template>
       </el-table-column>
     </el-table>

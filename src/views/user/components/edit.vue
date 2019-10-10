@@ -7,7 +7,14 @@
 		:close-on-click-modal="dialogModalClose"
     :close-on-press-escape="dialogEscClose"
   >
-    <el-form class="form" ref="form" label-width="96px" :model="form" :rules="rules" size="small">
+    <el-form
+      v-loading="querying"
+      class="form"
+      ref="form"
+      label-width="96px"
+      :model="form"
+      :rules="rules"
+      size="small">
       <el-form-item label="头像: " prop="avatar">
         <com-upload-image-single v-model="form.avatar"></com-upload-image-single>
       </el-form-item>
@@ -26,6 +33,16 @@
           <el-radio-button :label="false">禁用</el-radio-button>
         </el-radio-group>
       </el-form-item>
+      <el-form-item label="角色: " prop="role">
+        <el-select v-model="form.role" multiple style="width: 100%">
+            <el-option
+              v-for="item in roles"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            />
+          </el-select>
+      </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
 			<el-button @click="onClose" size="small">取 消</el-button>
@@ -36,19 +53,24 @@
 
 <script>
 import { createUser, updateUser } from '@/api/user'
+import { getTotalRoles } from '@/api/role'
+import md5 from 'md5'
 export default {
   data() {
     return {
       submiting: false,
+      querying: false,
       visible: false,
       title: '添加',
       id: null,
+      roles: [],
       form: {
         avatar: '',
         userName: '',
         fullName: '',
         password: '',
-        enable: true
+        enable: true,
+        role: []
       },
       rules: {
         avatar: [
@@ -68,9 +90,9 @@ export default {
   },
   methods: {
     open(row) {
-      console.log(row)
       this.visible = true
       this.title = row ? '编辑' : '添加'
+      this.query()
       if (row) {
         this.id = row.id
         this.form = {
@@ -79,6 +101,19 @@ export default {
           fullName: row.fullName,
           enable: row.enable
         }
+      }
+    },
+    async query() {
+      try {
+        this.querying = true
+        const res = await getTotalRoles()
+        if (res.success) {
+          this.roles = res.data || []
+        }
+      } catch (err) {
+        console.log(err)
+      } finally {
+        this.querying = false
       }
     },
     onSubmit() {
@@ -98,7 +133,11 @@ export default {
                 this.$emit('success')
               }
             } else {
-              const res = await createUser(this.form)
+              const { password, ...params } = this.form
+              const res = await createUser({
+                ...params,
+                password: md5(md5(password))
+              })
               if (res.success) {
                 this.$message.closeAll()
                 this.$message.success('添加成功')
@@ -122,7 +161,8 @@ export default {
         userName: '',
         fullName: '',
         password: '',
-        enable: true
+        enable: true,
+        role: []
       }
       this.$refs.form.clearValidate()
     }

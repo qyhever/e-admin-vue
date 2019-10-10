@@ -8,6 +8,13 @@ export const getRoles = params => {
   })
 }
 
+export const getTotalRoles = () => {
+  return axios({
+    method: 'get',
+    url: '/role/total'
+  })
+}
+
 export const createRole = params => {
   return axios({
     method: 'post',
