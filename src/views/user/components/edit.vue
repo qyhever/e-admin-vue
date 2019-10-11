@@ -99,7 +99,8 @@ export default {
           avatar: row.avatar,
           userName: row.userName,
           fullName: row.fullName,
-          enable: row.enable
+          enable: row.enable,
+          role: row.roles.map(item => item.id)
         }
       }
     },

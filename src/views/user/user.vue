@@ -37,9 +37,18 @@
 			</el-table-column>
 			<el-table-column align="center" prop="userName" label="用户名" />
 			<el-table-column align="center" prop="fullName" label="真实姓名" />
+			<el-table-column align="center" label="角色">
+        <template slot-scope="{row}">
+          <span v-if="row.roles && row.roles.length">
+            <span v-for="item in row.roles" :key="item.id">{{item.name}}<br></span>
+          </span>
+          <span v-else></span>
+        </template>
+			</el-table-column>
 			<el-table-column align="center" label="启用状态">
         <template slot-scope="{row}">
-          <el-switch v-model="row.enable" @change="handleToggleEnable" />
+          <span v-if="row.userName === 'admin'">-</span>
+          <el-switch v-else v-model="row.enable" @change="handleToggleEnable" />
         </template>
 			</el-table-column>
 			<el-table-column align="center" label="添加时间">
@@ -54,12 +63,17 @@
 			</el-table-column>
 			<el-table-column align="center" label="操作">
 				<template slot-scope="{row}">
-					<el-button type="text" @click="handleEdit(row)">
-            编辑
-          </el-button>
-          <el-button type="text" @click="handleDelete(row)">
-            删除
-          </el-button>
+          <template v-if="row.userName === 'admin'">
+            <span>-</span>
+          </template>
+          <template v-else>
+            <el-button type="text" @click="handleEdit(row)">
+              编辑
+            </el-button>
+            <el-button type="text" @click="handleDelete(row)">
+              删除
+            </el-button>
+          </template>
 				</template>
 			</el-table-column>
 		</el-table>

@@ -23,7 +23,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       const params = {
         userName,
-        password: md5(password)
+        password: md5(md5(password))
       }
       login(params).then(response => {
         if (response.success) {
