@@ -44,12 +44,13 @@ instance.interceptors.response.use(response => {
   return response.data
 }, (error) => {
   store.commit('app/TOGGLE_LOADING', false)
+  Message.closeAll()
   if (error.response) {
     const status = error.response.status
     // const msg = error.response.data.msg
     if (status === 401) {
       Message.warning('登录状态失效，请重新登录')
-      store.dispatch('user/resetToken').then(() => {
+      store.dispatch('user/logout').then(() => {
         router.replace('/login')
       })
     }

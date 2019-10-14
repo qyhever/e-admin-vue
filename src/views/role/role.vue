@@ -85,7 +85,6 @@
         try {
           this.querying = true
           const res = await getRoles(this.params)
-          console.log(res)
           if (res.success) {
             const data = res.data || {}
             const list = data.list || []

@@ -41,7 +41,8 @@ export const asyncRoutes = [
         component: () => import('@/views/dashboard'),
         meta: {
           title: '仪表盘',
-          icon: 'dashboard'
+          icon: 'dashboard',
+          auth: ['root']
         }
       }
     ]
@@ -52,7 +53,8 @@ export const asyncRoutes = [
     component: Layout,
     meta: {
       title: '组件',
-      icon: 'dashboard'
+      icon: 'dashboard',
+      auth: ['component']
     },
     children: [
       {
@@ -60,7 +62,8 @@ export const asyncRoutes = [
         path: 'clipboard',
         component: () => import('@/views/base/clipboard'),
         meta: {
-          title: '复制'
+          title: '复制',
+          auth: ['clipboard']
         }
       },
       {
@@ -68,7 +71,8 @@ export const asyncRoutes = [
         path: 'qrcode',
         component: () => import('@/views/base/qrcode'),
         meta: {
-          title: '二维码'
+          title: '二维码',
+          auth: ['qrcode']
         }
       }
     ]
@@ -83,7 +87,8 @@ export const asyncRoutes = [
         component: () => import('@/views/user'),
         meta: {
           title: '账号管理',
-          icon: 'dashboard'
+          icon: 'dashboard',
+          auth: ['user']
         }
       }
     ]
@@ -98,7 +103,8 @@ export const asyncRoutes = [
         component: () => import('@/views/role'),
         meta: {
           title: '角色管理',
-          icon: 'dashboard'
+          icon: 'dashboard',
+          auth: ['role']
         }
       }
     ]
@@ -113,7 +119,8 @@ export const asyncRoutes = [
         component: () => import('@/views/resource'),
         meta: {
           title: '权限管理',
-          icon: 'dashboard'
+          icon: 'dashboard',
+          auth: ['resource']
         }
       }
     ]
@@ -127,7 +134,8 @@ export const asyncRoutes = [
         path: 'index',
         meta: {
           title: 'admin页面',
-          icon: 'dashboard'
+          icon: 'dashboard',
+          auth: ['adminPage']
         },
         component: () => import('@/views/permission/admin')
       }
@@ -142,7 +150,8 @@ export const asyncRoutes = [
         path: 'index',
         meta: {
           title: 'dev页面',
-          icon: 'dashboard'
+          icon: 'dashboard',
+          auth: ['devPage']
         },
         component: () => import('@/views/permission/dev')
       }
@@ -157,7 +166,8 @@ export const asyncRoutes = [
         path: 'index',
         meta: {
           title: 'guest页面',
-          icon: 'dashboard'
+          icon: 'dashboard',
+          auth: ['guestPage']
         },
         component: () => import('@/views/permission/guest')
       }
@@ -172,7 +182,8 @@ export const asyncRoutes = [
         path: 'index',
         meta: {
           title: 'test页面',
-          icon: 'dashboard'
+          icon: 'dashboard',
+          auth: ['testPage']
         },
         component: () => import('@/views/permission/test')
       }
@@ -187,7 +198,8 @@ export const asyncRoutes = [
         path: 'index',
         meta: {
           title: 'operation页面',
-          icon: 'dashboard'
+          icon: 'dashboard',
+          auth: ['operationPage']
         },
         component: () => import('@/views/permission/operation')
       }

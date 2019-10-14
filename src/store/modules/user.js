@@ -4,16 +4,12 @@ import { setToken, removeToken } from '@/utils/local'
 import md5 from 'md5'
 
 const state = {
-  info: {},
-  roles: []
+  info: {}
 }
 
 const mutations = {
   SET_INFO(state, data) {
     state.info = data
-  },
-  SET_ROLES(state, roles) {
-    state.roles = roles
   }
 }
 
@@ -32,9 +28,7 @@ const actions = {
           setToken(token)
           resolve()
         }
-      }).catch(error => {
-        reject(error)
-      })
+      }).catch(reject)
     })
   },
   getUserInfo({ commit }) {
@@ -42,19 +36,14 @@ const actions = {
       getInfo().then(response => {
         if (response.success) {
           const data = response.data
-          const roles = [ data.roleId ]
-          commit('SET_ROLES', roles)
           commit('SET_INFO', data)
-          resolve(roles)
+          resolve(data.resources)
         }
-      }).catch(e => {
-        reject(e)
-      })
+      }).catch(reject)
     })
   },
-  resetToken({ commit }) {
+  logout({ commit }) {
     return new Promise(resolve => {
-      commit('SET_ROLES', [])
       commit('SET_INFO', {})
       removeToken()
       resolve()
