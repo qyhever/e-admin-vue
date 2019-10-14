@@ -50,10 +50,7 @@ instance.interceptors.response.use(response => {
     if (status === 401) {
       Message.warning('登录状态失效，请重新登录')
       store.dispatch('user/resetToken').then(() => {
-        router.replace({
-          path: '/login',
-          query: { redirect: router.currentRoute.fullPath }
-        })
+        router.replace('/login')
       })
     }
   
