@@ -27,9 +27,71 @@ a:hover, a:active, a:visited, a:focus {
 // html * {
 //     outline: 1px solid pink;
 // }
-.sidebar {
-  .svg-icon {
-    margin-right: 16px;
+.app-wrapper {
+  .sidebar-container {
+    // reset element-ui css
+    .horizontal-collapse-transition {
+      transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
+    }
+    .svg-icon {
+      margin-right: 16px;
+    }
+    // scrollbar
+    .scrollbar-wrapper {
+      overflow-x: hidden !important;
+    }
+    .el-scrollbar__bar.is-vertical {
+      right: 0px;
+    }
+    .el-scrollbar {
+      height: 100%;
+    }
+    .el-menu--collapse {
+      width: 100% !important;
+    }
+    &.collapse {
+      .submenu-title-nodropdown {
+        padding: 0 !important;
+        position: relative;
+  
+        .el-tooltip {
+          padding: 0 !important;
+  
+          .svg-icon {
+            margin-left: 20px;
+          }
+        }
+      }
+  
+      .el-submenu {
+        overflow: hidden;
+        &>.el-submenu__title {
+          padding: 0 !important;
+  
+          .svg-icon {
+            margin-left: 20px;
+          }
+  
+          .el-submenu__icon-arrow {
+            display: none;
+          }
+        }
+      }
+  
+      .el-menu--collapse {
+        .el-submenu {
+          &>.el-submenu__title {
+            &>span {
+              height: 0;
+              width: 0;
+              overflow: hidden;
+              visibility: hidden;
+              display: inline-block;
+            }
+          }
+        }
+      }
+    }
   }
 }
 

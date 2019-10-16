@@ -1,8 +1,8 @@
 <template>
-  <div class="sidebar">
+  <div class="sidebar-container" :class="{collapse: collapse}">
     <router-link class="logo-container" to="/">
       <img class="image" src="@/assets/images/logo.png" alt="加载失败" title="后台管理系统">
-      <h1 class="title">后台管理系统</h1>
+      <h1 class="title" v-show="!collapse">后台管理系统</h1>
     </router-link>
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
@@ -48,12 +48,10 @@ export default {
     SidebarItem
   },
   data() {
-    return {
-      collapse: false
-    }
+    return {}
   },
   computed: {
-    ...mapGetters([ 'routes' ])
+    ...mapGetters([ 'routes', 'collapse' ])
   },
   mounted() {
     // console.log(this.constantRoutes)
@@ -72,7 +70,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .sidebar {
+  .sidebar-container {
     z-index: 1999;
     position: fixed;
     left: 0;
@@ -84,6 +82,9 @@ export default {
     transition: width 0.3s;
     font-size: 0;
     overflow: hidden;
+    &.collapse {
+      width: 54px;
+    }
     /deep/ .el-menu {
       border-right: 0;
       .el-menu-item {

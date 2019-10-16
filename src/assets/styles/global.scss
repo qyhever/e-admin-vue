@@ -1,3 +1,4 @@
+$--color-primary: #346fff;
 @mixin input-placeholder($color: #0DC8FD) {
   &::placeholder {
       color: $color;

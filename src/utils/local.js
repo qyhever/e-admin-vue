@@ -1,5 +1,5 @@
 const TOKEN = 'e-admin-token'
-const COLLAPSED = 'e-admin-collapsed'
+const COLLAPSE = 'e-admin-collapse'
 
 export const setToken = token => {
   return localStorage.setItem(TOKEN, token)
@@ -13,10 +13,10 @@ export const removeToken = () => {
   return localStorage.removeItem(TOKEN)
 }
 
-export const setCollapsed = value => {
-  return localStorage.setItem(COLLAPSED, value)
+export const setCollapse = value => {
+  return localStorage.setItem(COLLAPSE, value)
 }
 
-export const getCollapsed = () => {
-  return localStorage.getItem(COLLAPSED)
+export const getCollapse = () => {
+  return JSON.parse(localStorage.getItem(COLLAPSE))
 }

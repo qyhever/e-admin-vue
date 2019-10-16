@@ -1,7 +1,7 @@
 <template>
   <div class="app-wrapper">
     <sidebar />
-    <div class="main-container">
+    <div class="main-container" :class="{collapse: collapse}">
       <header-bar />
       <breadcrumb />
       <div class="main">
@@ -12,12 +12,16 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { HeaderBar, Sidebar, Breadcrumb } from './components'
 export default {
   components: {
     HeaderBar,
     Sidebar,
     Breadcrumb
+  },
+  computed: {
+    ...mapGetters(['collapse'])
   }
 }
 </script>
@@ -33,6 +37,9 @@ export default {
   min-height: 100%;
   margin-left: 210px;
   transition: margin-left 0.3s;
+  &.collapse {
+    margin-left: 54px;
+  }
 }
 .main {
   position: relative;
