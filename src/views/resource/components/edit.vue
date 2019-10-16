@@ -79,19 +79,20 @@ export default {
       this.query()
       if (row) {
         this.id = row.id
-        this.form = {
-          name: row.name,
-          code: row.code,
-          type: row.type,
-          parentCode: row.parentCode
-        }
+        this.$nextTick(() => {
+          this.form = {
+            name: row.name,
+            code: row.code,
+            type: row.type,
+            parentCode: row.parentCode
+          }
+        })
       }
     },
     async query() {
       try {
         this.querying = true
         const res = await getDirs()
-        console.log(res)
         if (res.success) {
           this.dirs = [
             {name: '无', code: null},
@@ -109,27 +110,20 @@ export default {
         if (valid) {
           try {
             this.submiting = true
+            let res = {}
             if (this.id) {
-              const res = await updateResource({
+              res = await updateResource({
                 ...this.form,
                 id: this.id
               })
-              if (res.success) {
-                console.log(res)
-                this.$message.closeAll()
-                this.$message.success('修改成功')
-                this.visible = false
-                this.$emit('success')
-              }
             } else {
-              const res = await createResource(this.form)
-              if (res.success) {
-                console.log(res)
-                this.$message.closeAll()
-                this.$message.success('添加成功')
-                this.visible = false
-                this.$emit('success')
-              }
+              res = await createResource(this.form)
+            }
+            if (res.success) {
+              this.$message.closeAll()
+              this.$message.success(this.id ? '修改成功' : '添加成功')
+              this.visible = false
+              this.$emit('success')
             }
           } catch (err) {
             console.log(err)
@@ -142,13 +136,7 @@ export default {
     onClose() {
       this.visible = false
       this.id = null
-      this.form = {
-        name: '',
-        code: '',
-        type: '2',
-        parentCode: null
-      }
-      this.$refs.form.clearValidate()
+      this.$refs.form.resetFields()
     }
   }
 }

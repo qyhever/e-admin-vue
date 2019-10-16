@@ -95,13 +95,15 @@ export default {
       this.query()
       if (row) {
         this.id = row.id
-        this.form = {
-          avatar: row.avatar,
-          userName: row.userName,
-          fullName: row.fullName,
-          enable: row.enable,
-          role: row.roles.map(item => item.id)
-        }
+        this.$nextTick(() => {
+          this.form = {
+            avatar: row.avatar,
+            userName: row.userName,
+            fullName: row.fullName,
+            enable: row.enable,
+            role: row.roles.map(item => item.id)
+          }
+        })
       }
     },
     async query() {
@@ -122,29 +124,24 @@ export default {
         if (valid) {
           try {
             this.submiting = true
+            let res = {}
             if (this.id) {
-              const res = await updateUser({
+              res = await updateUser({
                 ...this.form,
                 id: this.id
               })
-              if (res.success) {
-                this.$message.closeAll()
-                this.$message.success('修改成功')
-                this.visible = false
-                this.$emit('success')
-              }
             } else {
               const { password, ...params } = this.form
-              const res = await createUser({
+              res = await createUser({
                 ...params,
                 password: md5(md5(password))
               })
-              if (res.success) {
-                this.$message.closeAll()
-                this.$message.success('添加成功')
-                this.visible = false
-                this.$emit('success')
-              }
+            }
+            if (res.success) {
+              this.$message.closeAll()
+              this.$message.success(this.id ? '修改成功' : '添加成功')
+              this.visible = false
+              this.$emit('success')
             }
           } catch (err) {
             console.log(err)
@@ -157,15 +154,7 @@ export default {
     onClose() {
       this.visible = false
       this.id = null
-      this.form = {
-        avatar: '',
-        userName: '',
-        fullName: '',
-        password: '',
-        enable: true,
-        role: []
-      }
-      this.$refs.form.clearValidate()
+      this.$refs.form.resetFields()
     }
   }
 }

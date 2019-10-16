@@ -140,13 +140,7 @@ export default {
     onClose() {
       this.visible = false
       this.id = null
-//       this.form = {
-//         name: '',
-//         description: ''
-//       }
-      this.$nextTick(() => {
-        this.$refs.form.resetFields()
-      })
+      this.$refs.form.resetFields()
       this.resourceList = []
       this.checkedKeys = []
     }
