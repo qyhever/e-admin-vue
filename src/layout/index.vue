@@ -1,7 +1,7 @@
 <template>
-  <div class="app-wrapper">
+  <div class="app-wrapper" :class="{collapse: collapse}">
     <sidebar />
-    <div class="main-container" :class="{collapse: collapse}">
+    <div class="main-container">
       <header-bar />
       <breadcrumb />
       <div class="main">
@@ -37,9 +37,6 @@ export default {
   min-height: 100%;
   margin-left: 210px;
   transition: margin-left 0.3s;
-  &.collapse {
-    margin-left: 54px;
-  }
 }
 .main {
   position: relative;

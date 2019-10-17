@@ -1,8 +1,8 @@
 <template>
-  <div class="sidebar-container" :class="{collapse: collapse}">
+  <div class="sidebar-container">
     <router-link class="logo-container" to="/">
       <img class="image" src="@/assets/images/logo.png" alt="加载失败" title="后台管理系统">
-      <h1 class="title" v-show="!collapse">后台管理系统</h1>
+      <h1 class="title" v-if="!collapse">后台管理系统</h1>
     </router-link>
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
@@ -82,9 +82,6 @@ export default {
     transition: width 0.3s;
     font-size: 0;
     overflow: hidden;
-    &.collapse {
-      width: 54px;
-    }
     /deep/ .el-menu {
       border-right: 0;
       .el-menu-item {
@@ -118,6 +115,19 @@ export default {
       color: #fff;
       font-weight: 600;
       font-size: 16px;
+      animation: fadeLeftIn 0.5s linear;
+      animation-fill-mode: both;
+    }
+  }
+  @keyframes fadeLeftIn {
+    0% {
+      transform: translateX(-10px);
+      opacity: 0;
+    }
+
+    100% {
+      transform: translateX(0);
+      opacity: 1;
     }
   }
 </style>

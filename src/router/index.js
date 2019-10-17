@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Layout from '@/layout'
 
 Vue.use(Router)
+// 世界上只有一种真正的英雄主义，那就是在认清生活的真相后依然热爱生活。
 
 // 静态路由
 export const constantRoutes = [
@@ -53,7 +54,7 @@ export const asyncRoutes = [
     component: Layout,
     meta: {
       title: '组件',
-      icon: 'dashboard',
+      icon: 'component',
       auth: ['component']
     },
     children: [
@@ -87,7 +88,7 @@ export const asyncRoutes = [
         component: () => import('@/views/user'),
         meta: {
           title: '账号管理',
-          icon: 'dashboard',
+          icon: 'user',
           auth: ['user']
         }
       }
@@ -103,7 +104,7 @@ export const asyncRoutes = [
         component: () => import('@/views/role'),
         meta: {
           title: '角色管理',
-          icon: 'dashboard',
+          icon: 'role',
           auth: ['role']
         }
       }
@@ -119,7 +120,7 @@ export const asyncRoutes = [
         component: () => import('@/views/resource'),
         meta: {
           title: '权限管理',
-          icon: 'dashboard',
+          icon: 'resource',
           auth: ['resource']
         }
       }
@@ -134,7 +135,7 @@ export const asyncRoutes = [
         path: 'index',
         meta: {
           title: 'admin页面',
-          icon: 'dashboard',
+          icon: 'admin',
           auth: ['adminPage']
         },
         component: () => import('@/views/permission/admin')
@@ -150,7 +151,7 @@ export const asyncRoutes = [
         path: 'index',
         meta: {
           title: 'dev页面',
-          icon: 'dashboard',
+          icon: 'dev',
           auth: ['devPage']
         },
         component: () => import('@/views/permission/dev')
@@ -166,7 +167,7 @@ export const asyncRoutes = [
         path: 'index',
         meta: {
           title: 'guest页面',
-          icon: 'dashboard',
+          icon: 'guest',
           auth: ['guestPage']
         },
         component: () => import('@/views/permission/guest')
@@ -182,7 +183,7 @@ export const asyncRoutes = [
         path: 'index',
         meta: {
           title: 'test页面',
-          icon: 'dashboard',
+          icon: 'test',
           auth: ['testPage']
         },
         component: () => import('@/views/permission/test')
@@ -198,7 +199,7 @@ export const asyncRoutes = [
         path: 'index',
         meta: {
           title: 'operation页面',
-          icon: 'dashboard',
+          icon: 'operation',
           auth: ['operationPage']
         },
         component: () => import('@/views/permission/operation')

@@ -28,13 +28,20 @@ a:hover, a:active, a:visited, a:focus {
 //     outline: 1px solid pink;
 // }
 .app-wrapper {
-  .sidebar-container {
+  > .sidebar-container {
     // reset element-ui css
     .horizontal-collapse-transition {
       transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
     }
     .svg-icon {
+      display: inline-block;
+      vertical-align: middle;
       margin-right: 16px;
+      font-size: 16px;
+    }
+    .svg-icon + span {
+      display: inline-block;
+      vertical-align: middle;
     }
     // scrollbar
     .scrollbar-wrapper {
@@ -49,35 +56,41 @@ a:hover, a:active, a:visited, a:focus {
     .el-menu--collapse {
       width: 100% !important;
     }
-    &.collapse {
+  }
+  &.collapse {
+    > .main-container {
+      margin-left: 54px;
+    }
+    > .sidebar-container {
+      width: 54px;
       .submenu-title-nodropdown {
         padding: 0 !important;
         position: relative;
-  
+        
         .el-tooltip {
           padding: 0 !important;
-  
+        
           .svg-icon {
             margin-left: 20px;
           }
         }
       }
-  
+        
       .el-submenu {
         overflow: hidden;
         &>.el-submenu__title {
           padding: 0 !important;
-  
+        
           .svg-icon {
             margin-left: 20px;
           }
-  
+        
           .el-submenu__icon-arrow {
             display: none;
           }
         }
       }
-  
+        
       .el-menu--collapse {
         .el-submenu {
           &>.el-submenu__title {
