@@ -23,7 +23,6 @@ router.beforeEach(async(to, from, next) => {
           try {
             // resources must be a object array!
             const resources = await store.dispatch('user/getUserInfo')
-            console.log(JSON.stringify(resources, null, 2))
             // generate accessible routes map based on resources
             const accessRoutes = await store.dispatch('permission/generateRoutes', resources)
   
@@ -36,7 +35,7 @@ router.beforeEach(async(to, from, next) => {
           } catch (error) {
             console.log(error)
             await store.dispatch('user/resetToken')
-            next(`/login?redirect=${to.path}`)
+            next('/login')
             NProgress.done()
           }
         }
@@ -45,7 +44,7 @@ router.beforeEach(async(to, from, next) => {
       if (whiteList.indexOf(to.path) >= 0) {
         next()
       } else {
-        next(`/login?redirect=${to.path}`)
+        next('/login')
         NProgress.done()
       }
     }
@@ -53,5 +52,5 @@ router.beforeEach(async(to, from, next) => {
 })
 // router after each
 router.afterEach(() => {
-NProgress.done()
+  NProgress.done()
 })

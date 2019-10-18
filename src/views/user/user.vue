@@ -48,7 +48,7 @@
 			<el-table-column align="center" label="启用状态">
         <template slot-scope="{row}">
           <span v-if="row.userName === 'admin'">-</span>
-          <el-switch v-else v-model="row.enable" @change="handleToggleEnable" />
+          <el-switch v-else :value="row.enable" @change="handleToggleEnable(row)" />
         </template>
 			</el-table-column>
 			<el-table-column align="center" label="添加时间">
@@ -95,7 +95,7 @@
 </template>
 
 <script>
-import { getUsers } from '@/api/user'
+import { getUsers, patchUser, deleteUser } from '@/api/user'
 import { pagination } from '@/mixins'
 import Edit from './components/edit'
 export default {
@@ -124,7 +124,6 @@ export default {
       try {
         this.querying = true
         const res = await getUsers(this.params)
-        console.log(res)
         if (res.success) {
           const data = res.data || {}
           const list = data.list || []
@@ -145,28 +144,51 @@ export default {
       this.$refs.dialog.open(row)
     },
     handleDelete(row) {
-      console.log(row)
       this.$confirm('确定要删除吗？', '温馨提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(async () => {
-        // try {
-        //   const res = await deleteRole({
-        //     id: row.id
-        //   })
-        //   if (res.success) {
-        //     this.$message.closeAll()
-        //     this.$message.success('删除成功')
-        //     this.query()
-        //   }
-        // } catch (err) {
-        //   console.log(err)
-        // }
+        try {
+          const res = await deleteUser({
+            id: row.id
+          })
+          if (res.success) {
+            this.query()
+            this.$message.closeAll()
+            this.$message.success('删除成功')
+          }
+        } catch (err) {
+          console.log(err)
+        } finally {
+          // ...
+        }
       })
     },
-    handleToggleEnable() {
-      // ...
+    async handleToggleEnable(row) {
+      try {
+        const res = await patchUser({
+          id: row.id,
+          enable: !row.enable
+        })
+        if (res.success) {
+          this.list = this.list.map(item => {
+            if (item.id === row.id) {
+              return {
+                ...item,
+                enable: !item.enable
+              }
+            }
+            return item
+          })
+          this.$message.closeAll()
+          this.$message.success('操作成功')
+        }
+      } catch (err) {
+        console.log(err)
+      } finally {
+        // ...
+      }
     }
   }
 }

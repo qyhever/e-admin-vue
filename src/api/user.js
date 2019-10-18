@@ -38,3 +38,19 @@ export const updateUser = params => {
     data: params
   })
 }
+
+export const patchUser = params => {
+  return axios({
+    method: 'patch',
+    url: '/user',
+    data: params
+  })
+}
+
+export const deleteUser = params => {
+  return axios({
+    method: 'delete',
+    url: `/user/${params.id}`,
+    params
+  })
+}

@@ -60,9 +60,13 @@ export default {
     submitForm() {
       this.$refs.form.validate(async valid => {
         if (valid) {
-          await this.login(this.form)
-          // await this.$store.dispatch('user/login', this.form)
-          this.$router.push(this.$route.redirect || '/dashboard')
+          try {
+            await this.login(this.form)
+            // await this.$store.dispatch('user/login', this.form)
+            this.$router.push(this.$route.redirect || '/dashboard')            
+          } catch (err) {
+            console.log(err)
+          }
         }
       })
     }

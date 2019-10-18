@@ -30,7 +30,7 @@ export const constantRoutes = [
     }
   }
 ]
-
+// 动态鉴权路由
 export const asyncRoutes = [
   {
     path: '/',
@@ -42,8 +42,7 @@ export const asyncRoutes = [
         component: () => import('@/views/dashboard'),
         meta: {
           title: '仪表盘',
-          icon: 'dashboard',
-          auth: ['root']
+          icon: 'dashboard'
         }
       }
     ]
@@ -80,6 +79,7 @@ export const asyncRoutes = [
   },
   {
     path: '/user',
+    redirect: '/user/index',
     component: Layout,
     children: [
       {
@@ -96,6 +96,7 @@ export const asyncRoutes = [
   },
   {
     path: '/role',
+    redirect: '/role/index',
     component: Layout,
     children: [
       {
@@ -112,6 +113,7 @@ export const asyncRoutes = [
   },
   {
     path: '/resource',
+    redirect: '/resource/index',
     component: Layout,
     children: [
       {
@@ -128,6 +130,7 @@ export const asyncRoutes = [
   },
   {
     path: '/admin',
+    redirect: '/admin/index',
     component: Layout,
     children: [
       {
@@ -144,6 +147,7 @@ export const asyncRoutes = [
   },
   {
     path: '/dev',
+    redirect: '/dev/index',
     component: Layout,
     children: [
       {
@@ -160,6 +164,7 @@ export const asyncRoutes = [
   },
   {
     path: '/guest',
+    redirect: '/guest/index',
     component: Layout,
     children: [
       {
@@ -176,6 +181,7 @@ export const asyncRoutes = [
   },
   {
     path: '/test',
+    redirect: '/test/index',
     component: Layout,
     children: [
       {
@@ -192,6 +198,7 @@ export const asyncRoutes = [
   },
   {
     path: '/operation',
+    redirect: '/operation/index',
     component: Layout,
     children: [
       {

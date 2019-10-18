@@ -1,6 +1,6 @@
 import { login, getInfo } from '@/api/user'
 import { setToken, removeToken } from '@/utils/local'
-// import router, { resetRouter } from '@/router'
+import { resetRouter } from '@/router'
 import md5 from 'md5'
 
 const state = {
@@ -26,7 +26,9 @@ const actions = {
           const { data } = response
           const { token } = data
           setToken(token)
-          resolve()
+          resolve(data)
+        } else {
+          reject(response)
         }
       }).catch(reject)
     })
@@ -46,6 +48,7 @@ const actions = {
     return new Promise(resolve => {
       commit('SET_INFO', {})
       removeToken()
+      resetRouter()
       resolve()
     })
   }

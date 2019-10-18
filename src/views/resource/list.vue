@@ -152,7 +152,6 @@ export default {
           id: row.id,
           enable: !row.enable
         })
-        console.log(res)
         if (res.success) {
           this.list = this.list.map(item => {
             if (item.id === row.id) {
@@ -173,7 +172,6 @@ export default {
       }
     },
     handleDelete(row) {
-      console.log(row)
       const msg = row.type === '2' ? '确定要删除吗？' : '该资源为目录权限，删除该目录会删除下面全部子权限，是否确定删除？' 
       this.$confirm(msg, '温馨提示', {
         confirmButtonText: '确定',

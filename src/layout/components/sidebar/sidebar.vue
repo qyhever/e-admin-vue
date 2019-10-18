@@ -88,10 +88,10 @@ export default {
         height: 50px;
         line-height: 50px;
         &.is-active, &.is-active:hover, &:focus {
-          background-color: #1890FF !important;
+          background-color: #346fff !important;
         }
         &:hover {
-          background-color: #0b1133 !important
+          background-color: #0b1133 !important;
         }
       }
     }

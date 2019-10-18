@@ -56,7 +56,6 @@ const actions = {
       } else {
         accessedRoutes = filterAsyncRoutes(asyncRoutes, resourceCodes)
       }
-      console.log(accessedRoutes)
       // console.log(JSON.stringify(accessedRoutes, null, 2))
       commit('SET_ROUTES', accessedRoutes)
       resolve(accessedRoutes)

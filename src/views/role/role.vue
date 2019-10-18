@@ -117,7 +117,6 @@
         this.$refs.dialog.open(row)
       },
       handleDelete(row) {
-        console.log(row)
         this.$confirm('确定要删除吗？', '温馨提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',

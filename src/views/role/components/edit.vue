@@ -72,7 +72,6 @@ export default {
   },
   methods: {
     open(row) {
-      console.log(row)
       this.visible = true
       this.title = row ? '编辑' : '添加'
       this.query()

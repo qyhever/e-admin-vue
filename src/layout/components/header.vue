@@ -9,7 +9,7 @@
           <p>{{userInfo.userName}}</p>
           <p>{{roleNames}}</p>
         </div>
-        <el-dropdown>
+        <el-dropdown @command="handleDropdown">
           <div class="user-dropdown">
             <img v-if="userInfo.avatar" class="user-dropdown__avatar" :src="userInfo.avatar" alt="头像">
             <img v-else class="user-dropdown__avatar" src="@/assets/images/user.png" alt="头像">
@@ -35,7 +35,7 @@ export default {
   computed: {
     ...mapGetters(['collapse', 'userInfo']),
     roleNames() {
-      return this.userInfo.roleNames.join(',')
+      return this.userInfo.roleNames && this.userInfo.roleNames.join(',')
     }
   },
   methods: {
@@ -44,6 +44,12 @@ export default {
     },
     handleAvatarError() {
       return true
+    },
+    async handleDropdown(command) {
+      if (command === 'logout') {
+        await this.$store.dispatch('user/logout')
+        this.$router.push('/login')
+      }
     }
   }
 }
