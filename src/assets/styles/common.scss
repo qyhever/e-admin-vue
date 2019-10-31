@@ -112,6 +112,28 @@ a:hover, a:active, a:visited, a:focus {
   padding-top: 20px;
   text-align: right;
 }
+.media-form {
+  flex: 0 0 auto;
+  
+  .el-row {
+    flex-wrap: wrap;
+  }
+}
+@media screen and (max-width: 1500px) {
+  .media-form {
+    /deep/ .el-col {
+      width: 33.33%;
+    }
+  }
+}
+
+@media screen and (max-width: 1180px) {
+  .media-form {
+    /deep/ .el-col {
+      width: 50%;
+    }
+  }
+}
 .avatar {
   width: 50px;
   height: 50px;

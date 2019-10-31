@@ -24,15 +24,16 @@ export default {
     return {
       loading: '',
       param: {
-        token: ''
+        token: '',
+        key: ''
       }
     }
   },
   methods: {
     handleSuccess(res) {
       this.loading = false
-      const { hash } = res
-      const imageUrl = this.QINIU_PREFIX + hash
+      const { key } = res
+      const imageUrl = this.QINIU_PREFIX + key
       this.$emit('input', imageUrl)
     },
     handlebeforeUpload(file) {
@@ -46,6 +47,7 @@ export default {
         axios.get('/upload/qiniu_token').then(res => {
           const { token } = res.data
           this.param.token = token
+          this.param.key = new Date().getTime() + Math.random().toString(16).slice(2) + file.name
           resolve(true)
         }).catch(err => {
           this.loading = false

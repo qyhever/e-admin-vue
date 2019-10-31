@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form class="com-form" label-width="80px" size="small">
+    <el-form class="com-form media-form" label-width="80px" size="small">
       <el-row :gutter="20">
         <el-col :span="6">
           <el-form-item label="权限名">
@@ -198,26 +198,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  .com-form {
-    flex: 0 0 auto;
-    .el-row {
-        flex-wrap: wrap;
-    }
-  }
-  @media screen and (max-width: 1500px) {
-    .com-form {
-      /deep/ .el-col {
-        width: 33.33%;
-      }
-    }
-  }
-  @media screen and (max-width: 1180px) {
-    .com-form {
-      /deep/ .el-col {
-        width: 50%;
-      }
-    }
-  }
-</style>

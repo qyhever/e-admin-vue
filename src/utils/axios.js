@@ -6,6 +6,17 @@ import { Message } from 'element-ui'
 import { getToken } from '@/utils/local'
 import baseURL from '@/config/api'
 
+const codeMessage = {
+  400: '请求错误',
+  401: '登录状态失效，请重新登录',
+  403: '拒绝访问',
+  404: '请求地址不存在',
+  500: '服务器错误，请稍后再试',
+  502: '网关错误',
+  503: '服务不可用，服务器暂时过载或维护',
+  504: '网关超时'
+}
+
 // axios.defaults.headers.post['Content-Type'] = 'application/json charset=UTF-8'
 const instance = axios.create({
   baseURL,
@@ -38,34 +49,31 @@ instance.interceptors.response.use(response => {
     response.data.success = true
   } else {
     Message.closeAll()
-    Message.error(response.data.msg)
+    Message.warning(response.data.msg || '操作失败')
   }
   store.commit('app/TOGGLE_LOADING', false)
   return response.data
 }, (error) => {
   store.commit('app/TOGGLE_LOADING', false)
-  Message.closeAll()
+  let msg = ''
   if (error.response) {
     const status = error.response.status
-    // const msg = error.response.data.msg
+    msg = codeMessage[status] || '操作失败'
     if (status === 401) {
-      Message.warning('登录状态失效，请重新登录')
       store.dispatch('user/logout').then(() => {
         router.replace('/login')
       })
     }
-  
-    if (status === 404) {
-      Message.error('404 NOT FOUND')
-    }
-  
-    if (status === 500) {
-      Message.error('服务器异常')
-    }
   } else {
-    Message.warning('网络错误，请稍后再试')
+    if (error.message.indexOf('timeout') >= 0) {
+      msg = '请求超时！请检查网络是否正常'
+    } else {
+      msg = '网络错误，请检查网络是否已连接！'
+    }
   }
-  return Promise.reject(error)
+  Message.closeAll()
+  Message.error(msg)
+  return Promise.reject(error.response || error)
 })
 
 export default instance

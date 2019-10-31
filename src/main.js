@@ -11,10 +11,7 @@ import './assets/styles/element-variables.scss'
 
 import 'normalize.css'
 import './assets/styles/index.scss'
-import * as filters from './filters'
-Object.keys(filters).forEach(key => {
-  Vue.filter(key, filters[key])
-})
+import './filters'
 
 Vue.use(Element)
 
