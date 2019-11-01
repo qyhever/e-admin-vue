@@ -1,4 +1,4 @@
-import { asyncRoutes, constantRoutes } from '@/router'
+import { constantRoutes } from '@/router'
 
 /**
  * Use meta.auth to determine if the current user has permission
@@ -6,8 +6,9 @@ import { asyncRoutes, constantRoutes } from '@/router'
  * @param route
  */
 function hasPermission(resourceCodes, route) {
-  if (route.meta && route.meta.auth) {
-    return resourceCodes.some(resourceCode => route.meta.auth.includes(resourceCode))
+  if (route.meta && route.meta.auth && Array.isArray(route.meta.auth)) {
+    // return resourceCodes.some(resourceCode => route.meta.auth.includes(resourceCode))
+    return route.meta.auth.every(code => resourceCodes.includes(code))
   }
   return true
 }
@@ -25,8 +26,12 @@ export function filterAsyncRoutes(routes, resourceCodes) {
     if (hasPermission(resourceCodes, tmp)) {
       if (tmp.children) {
         tmp.children = filterAsyncRoutes(tmp.children, resourceCodes)
+        if (tmp.children.length) {
+          res.push(tmp)
+        }
+      } else {
+        res.push(tmp)
       }
-      res.push(tmp)
     }
   })
 
@@ -45,27 +50,8 @@ const mutations = {
   }
 }
 
-const actions = {
-  generateRoutes({ commit, rootState }) {
-    const { roleNames, resources } = rootState.user.info
-    const resourceCodes = resources.map(item => item.code)
-    return new Promise(resolve => {
-      let accessedRoutes = []
-      if (roleNames.includes('admin')) {
-        accessedRoutes = asyncRoutes
-      } else {
-        accessedRoutes = filterAsyncRoutes(asyncRoutes, resourceCodes)
-      }
-      // console.log(JSON.stringify(accessedRoutes, null, 2))
-      commit('SET_ROUTES', accessedRoutes)
-      resolve(accessedRoutes)
-    })
-  }
-}
-
 export default {
   namespaced: true,
   state,
-  mutations,
-  actions
+  mutations
 }

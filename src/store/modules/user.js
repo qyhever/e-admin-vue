@@ -1,7 +1,16 @@
-import { login, getInfo } from '@/api/user'
-import { setToken, removeToken } from '@/utils/local'
-import { resetRouter } from '@/router'
-import md5 from 'md5'
+import { setToken, removeToken, setUser, removeUser } from '@/utils/local'
+import router, { resetRouter, asyncRoutes } from '@/router'
+import { filterAsyncRoutes } from './permission'
+function generateRoutes(resources) {
+  const resourceCodes = resources.map(item => item.code)
+  let accessedRoutes = []
+  try {
+    accessedRoutes = filterAsyncRoutes(asyncRoutes, resourceCodes)
+  } catch (err) {
+    console.log(err)
+  }
+  return accessedRoutes
+}
 
 const state = {
   info: {}
@@ -14,42 +23,39 @@ const mutations = {
 }
 
 const actions = {
-  login(_ , userInfo) {
-    const { userName, password } = userInfo
-    return new Promise((resolve, reject) => {
-      const params = {
-        userName,
-        password: md5(md5(password))
-      }
-      login(params).then(response => {
-        if (response.success) {
-          const { data } = response
-          const { token } = data
-          setToken(token)
-          resolve(data)
-        } else {
-          reject(response)
-        }
-      }).catch(reject)
-    })
-  },
-  getUserInfo({ commit }) {
-    return new Promise((resolve, reject) => {
-      getInfo().then(response => {
-        if (response.success) {
-          const data = response.data
-          commit('SET_INFO', data)
-          resolve(data.resources)
-        }
-      }).catch(reject)
-    })
-  },
-  logout({ commit }) {
+  clearInfo({ commit }) {
     return new Promise(resolve => {
       commit('SET_INFO', {})
-      removeToken()
+      removeUser() // removeUser local
+      removeToken() // removeToken local
       resetRouter()
       resolve()
+    })
+  },
+  initUser({ commit, dispatch }, { token, userInfo }) {
+    return new Promise((resolve, reject) => {
+      // generate accessible routes map based on resources
+      const { resources } = userInfo
+      const accessRoutes = generateRoutes(resources)
+      if (accessRoutes.length) {
+        const redirectPath = accessRoutes[0].path === '/' ? '/dashboard' : accessRoutes[0].path
+        const routes = [{
+          path: '/',
+          redirect: redirectPath,
+          hidden: true
+        }, ...accessRoutes]
+        commit('permission/SET_ROUTES', routes, {root: true})
+        router.addRoutes(routes)
+
+        commit('SET_INFO', userInfo)
+        setUser(userInfo) // setUser local
+        token && setToken(token) // setToken local
+
+        resolve(redirectPath)
+      } else {
+        dispatch('logout')
+        reject(new Error('no accessRoutes'))
+      }
     })
   }
 }

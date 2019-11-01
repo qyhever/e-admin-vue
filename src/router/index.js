@@ -8,11 +8,6 @@ Vue.use(Router)
 // 静态路由
 export const constantRoutes = [
   {
-    path: '/',
-    redirect: '/dashboard',
-    hidden: true
-  },
-  {
     path: '/login',
     name: 'Login',
     hidden: true,
@@ -42,7 +37,8 @@ export const asyncRoutes = [
         component: () => import('@/views/dashboard'),
         meta: {
           title: '仪表盘',
-          icon: 'dashboard'
+          icon: 'dashboard',
+          auth: ['dashboard']
         }
       }
     ]
@@ -212,11 +208,18 @@ export const asyncRoutes = [
         component: () => import('@/views/permission/operation')
       }
     ]
+  },
+  {
+    path: '*',
+    redirect: '/404',
+    hidden: true
   }
 ]
 
 // 生成路由实例
 const createRouter = () => new Router({
+  mode: 'history',
+  base: '/e-admin-client/',
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })

@@ -60,7 +60,7 @@ instance.interceptors.response.use(response => {
     const status = error.response.status
     msg = codeMessage[status] || '操作失败'
     if (status === 401) {
-      store.dispatch('user/logout').then(() => {
+      store.dispatch('user/clearInfo').then(() => {
         router.replace('/login')
       })
     }

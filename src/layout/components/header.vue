@@ -47,7 +47,7 @@ export default {
     },
     async handleDropdown(command) {
       if (command === 'logout') {
-        await this.$store.dispatch('user/logout')
+        await this.$store.dispatch('user/clearInfo')
         this.$router.push('/login')
       }
     }

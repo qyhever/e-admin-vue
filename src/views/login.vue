@@ -38,6 +38,8 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import md5 from 'md5'
+import { login } from '@/api/user'
 export default {
   name: 'login',
   data() {
@@ -61,9 +63,20 @@ export default {
       this.$refs.form.validate(async valid => {
         if (valid) {
           try {
-            await this.login(this.form)
-            // await this.$store.dispatch('user/login', this.form)
-            this.$router.push(this.$route.redirect || '/dashboard')            
+            const params = {
+              userName: this.form.userName,
+              password: md5(md5(this.form.password))
+            }
+            const response = await login(params)
+            if (response.success) {
+              this.$store.dispatch('user/initUser', response.data).then(path => {
+                this.$router.push(path)
+              }).catch(err => {
+                console.log(err)
+                this.$message.closeAll()
+                this.$message.warning('没有登录权限')
+              })
+            }
           } catch (err) {
             console.log(err)
           }

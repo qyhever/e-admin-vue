@@ -10,7 +10,7 @@ module.exports = {
       config.devtool = 'cheap-source-map'
     }
   },
-  publicPath: '/e-admin/',
+  publicPath: '/e-admin-client/',
   outputDir: 'docs',
   devServer: {
     port: 9000,
