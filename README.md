@@ -1,29 +1,20 @@
-# e-admin
+一个使用 vue + element-ui + vue-cli3 构建的 rbac 权限模型
 
-## Project setup
-```
-npm install
-```
+#### 在线地址
 
-### Compiles and hot-reloads for development
-```
+- [github](https://qyhever.top/e-admin-vue)
+- [gitee](https://qinyhquery.gitee.io/e-admin-vue)
+- [router history模式](https://qyhever.com/e-admin-vue)
+
+#### 运行项目
+
+```shell
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
+#### 构建项目
+
+```shell
 npm run build
 ```
 
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
