@@ -10,7 +10,7 @@ module.exports = {
       config.devtool = 'cheap-source-map'
     }
   },
-  publicPath: '/e-admin-client/',
+  publicPath: '/e-admin-vue/',
   outputDir: 'docs',
   devServer: {
     port: 9000,
