@@ -23,6 +23,9 @@ a {
 a:hover, a:active, a:visited, a:focus {
   text-decoration: none;
 }
+#nprogress .bar {
+    z-index: 9999 !important;
+}
 
 // html * {
 //     outline: 1px solid pink;

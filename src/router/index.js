@@ -19,10 +19,17 @@ export const constantRoutes = [
   {
     path: '/404',
     hidden: true,
-    component: () => import('@/views/exception/exception404'),
-    meta: {
-      title: '404'
-    }
+    component: Layout,
+    children: [
+      {
+        name: 'exception404',
+        path: '',
+        meta: {
+          title: '404'
+        },
+        component: () => import('@/views/exception/exception404')
+      }
+    ]
   }
 ]
 // 动态鉴权路由
