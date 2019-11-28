@@ -1,0 +1,11 @@
+$--color-primary: #346fff;
+$--table-row-hover-background-color: #e6f7ff;
+$--table-header-background-color: #FAFAFA;
+$--table-header-font-color: #000;
+$--dialog-box-shadow: 0 0 12px 6px rgba(66,133,244,.2);
+$--popup-modal-background-color: #fff;
+
+/* 改变 icon 字体路径变量，必需 */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+@import "~element-ui/packages/theme-chalk/src/index";

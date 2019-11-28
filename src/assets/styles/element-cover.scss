@@ -1,0 +1,20 @@
+/**
+* 防止单选项换行后过于拥挤
+*/
+.el-radio {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+/* message-box 阴影 */
+.el-message-box {
+  box-shadow: 0 0 12px 6px rgba(66,133,244,.2);
+}
+/* 表头可复制 */
+.el-table th {
+  user-select: text;
+  color: rgba(0, 0, 0, .85);
+}
+/* 清除 tab 点击出现蓝色边框阴影 */
+.el-radio-button:focus:not(.is-focus):not(:active):not(.is-disabled) {
+  box-shadow: 0 0 2px 2px transparent;
+}

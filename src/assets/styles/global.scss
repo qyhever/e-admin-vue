@@ -1,0 +1,25 @@
+$--color-primary: #346fff;
+@mixin input-placeholder($color: #0DC8FD) {
+  &::placeholder {
+      color: $color;
+      opacity: 1;
+  }
+  /* WebKit browsers*/
+  &::-webkit-input-placeholder {
+      color: $color;
+  }
+  /* Firefox 4-18*/
+  &:-moz-placeholder {
+      color: $color;
+      opacity: 1;
+  }
+  /* Firefox 19+*/
+  &::-moz-placeholder {
+      color: $color;
+      opacity: 1;
+  }
+  /* IE 10+*/
+  &:-ms-input-placeholder {
+      color: $color;
+  }
+}
