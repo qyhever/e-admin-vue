@@ -11,7 +11,7 @@ module.exports = {
     }
   },
   publicPath: '/e-admin-vue/',
-  outputDir: 'docs',
+  outputDir: 'dist',
   devServer: {
     port: 9000,
     overlay: {
