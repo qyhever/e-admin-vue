@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import { getUser } from '@/utils/local'
+import { getLocalCity } from '@/utils'
 
 import './router/permission'
 import './icons'
@@ -13,7 +14,7 @@ import './assets/styles/element-variables.scss'
 import 'normalize.css'
 import './assets/styles/index.scss'
 import './filters'
-
+getLocalCity().then(console.log)
 Vue.use(Element)
 const user = getUser()
 if (user) {

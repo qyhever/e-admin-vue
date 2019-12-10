@@ -22,7 +22,9 @@ module.exports = {
     'vue'
   ],
   globals: {
-    require: false
+    require: false,
+    AMap: false,
+    process: false
   },
   // add your custom rules here
   rules: {

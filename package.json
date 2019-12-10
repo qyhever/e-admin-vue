@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npm run serve",
     "dev": "npm run serve",
-    "serve": "vue-cli-service serve --color",
+    "serve": "vue-cli-service serve --color --copy",
     "build": "vue-cli-service build --mode prod",
     "lint": "vue-cli-service lint",
     "lint:fix": "eslint --fix --ext .js,.vue src",
