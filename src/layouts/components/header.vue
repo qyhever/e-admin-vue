@@ -57,13 +57,13 @@ export default {
 
 <style lang="scss" scoped>
   .header {
-    height: 60px;
+    height: $header-height;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
     // box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
     .menu-button-wrapper {
       float: left;
       width: 60px;
-      height: 60px;
+      height: $header-height;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -88,7 +88,7 @@ export default {
           }
         }
         .user-dropdown {
-          height: 60px;
+          height: $header-height;
           display: flex;
           align-items: center;
           padding: 0 16px;

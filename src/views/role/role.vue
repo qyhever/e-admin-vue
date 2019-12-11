@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="com-container">
     <el-form class="com-form media-form" label-width="80px" size="small">
       <el-row :gutter="20">
         <el-col :span="6">
@@ -9,7 +9,7 @@
         </el-col>
         <el-col :span="6">
           <el-form-item label="" label-width="0px">
-            <el-button type="primary" :loading="querying" @click="changeQuery">查询</el-button>
+            <el-button type="primary" :disabled="querying" @click="changeQuery">查询</el-button>
             <el-button type="primary" @click="handleCreate">添加</el-button>
           </el-form-item>
         </el-col>

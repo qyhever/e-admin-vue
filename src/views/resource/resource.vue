@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="com-container">
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <el-tab-pane label="树状查看" name="tree">
         <tree />
@@ -31,3 +31,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .com-container >>> .el-tabs__content {
+    overflow: initial;
+  }
+</style>
+

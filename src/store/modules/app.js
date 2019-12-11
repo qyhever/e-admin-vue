@@ -7,7 +7,7 @@ const state = {
 const mutations = {
   TOGGLE_SIDEBAR(state) {
     state.collapse = !state.collapse
-    setCollapse(!state.collapse)
+    setCollapse(state.collapse)
   },
   TOGGLE_LOADING(state, value) {
     state.loading = value

@@ -1,20 +1,20 @@
 html, body, #app {
-    height: 100%;
+  height: 100%;
 }
 
 html {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
-    font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  font-size: 14px;
 }
 
 *, :after, :before {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
 a {
   text-decoration: none;
@@ -28,7 +28,7 @@ a:hover, a:active, a:visited, a:focus {
 }
 
 // html * {
-//     outline: 1px solid pink;
+//   outline: 1px solid pink;
 // }
 .app-wrapper {
   > .sidebar-container {
@@ -110,7 +110,15 @@ a:hover, a:active, a:visited, a:focus {
     }
   }
 }
-
+.com-container {
+  min-height: calc(100vh - #{$header-height} - #{$bread-height} - #{$footer-height} - 40px);
+  display: flex;
+  flex-direction: column;
+}
+.com-table {
+  flex: auto;
+  overflow: inherit;
+}
 .com-pagination {
   padding-top: 20px;
   text-align: right;

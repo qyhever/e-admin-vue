@@ -76,7 +76,7 @@ export default {
 <style lang="scss" scoped>
   .breadcrumb {
     position: relative;
-    height: 40px;
+    height: $bread-height;
     padding: 12px;
     &:after {
       content: "";

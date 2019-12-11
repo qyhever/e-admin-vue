@@ -31,6 +31,8 @@ module.exports = {
     }
   },
   chainWebpack(config) {
+    config.plugins.delete('prefetch')
+    config.plugins.delete('preload')
     // set svg-sprite-loader
     config.module
       .rule('svg')

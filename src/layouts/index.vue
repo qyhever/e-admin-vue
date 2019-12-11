@@ -7,6 +7,7 @@
       <div class="main">
         <router-view />
       </div>
+      <footer class="footer">正在缓冲99% ©2019 Created by platchar</footer>
     </div>
   </div>
 </template>
@@ -34,15 +35,21 @@ export default {
 }
 .main-container {
   position: relative;
-  min-height: 100%;
+  min-height: 100vh;
   margin-left: 210px;
   transition: margin-left 0.3s;
 }
 .main {
   position: relative;
-  min-height: calc(100vh - 127px);
+  min-height: calc(100vh - #{$header-height} - #{$bread-height} - #{$footer-height});
   width: 100%;
   padding: 20px;
-  overflow: hidden;
+}
+.footer {
+  height: $footer-height;
+  padding: 22px 0;
+  color: rgba(0, 0, 0, .65);
+  font-size: 14px;
+  text-align: center;
 }
 </style>

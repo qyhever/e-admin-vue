@@ -225,8 +225,8 @@ export const asyncRoutes = [
 
 // 生成路由实例
 const createRouter = () => new Router({
-  // mode: 'history',
-  // base: '/e-admin-vue/',
+  mode: 'history',
+  base: '/e-admin-vue/',
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })
