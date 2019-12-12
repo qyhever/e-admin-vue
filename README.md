@@ -1,5 +1,7 @@
 一个使用 vue + element-ui + vue-cli3 构建的 rbac 权限模型
 
+[react版本](https://github.com/qyhever/e-admin-react/)
+
 #### 在线地址
 
 - [github](https://qyhever.top/e-admin-vue)
