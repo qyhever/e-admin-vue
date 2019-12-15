@@ -37,13 +37,14 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 import md5 from 'md5'
 import { login } from '@/api/user'
 export default {
   name: 'login',
   data() {
     return {
+      loading: false,
       form: {
         userName: 'admin',
         password: '123456'
@@ -53,9 +54,6 @@ export default {
         password: [ { required: true, message: '请输入密码!' } ]
       }
     }
-  },
-  computed: {
-    ...mapGetters([ 'loading' ])
   },
   methods: {
     ...mapActions('user', [ 'login' ]),
@@ -67,6 +65,7 @@ export default {
               userName: this.form.userName,
               password: md5(md5(this.form.password))
             }
+            this.loading = true
             const response = await login(params)
             if (response.success) {
               this.$store.dispatch('user/initUser', response.data).then(path => {
@@ -75,6 +74,8 @@ export default {
                 console.log(err)
                 this.$message.closeAll()
                 this.$message.warning('没有登录权限')
+              }).finally(() => {
+                this.loading = false
               })
             }
           } catch (err) {
