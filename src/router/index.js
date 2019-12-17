@@ -44,8 +44,7 @@ export const asyncRoutes = [
         component: () => import('@/views/dashboard'),
         meta: {
           title: '仪表盘',
-          icon: 'dashboard',
-          auth: ['dashboard']
+          icon: 'dashboard'
         }
       }
     ]

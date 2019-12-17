@@ -1,5 +1,17 @@
 import axios from '@/utils/axios'
 
+// export const testReq = () => {
+//   return axios({
+//     method: 'get',
+//     url: 'http://localhost:3000/users',
+//     getResponse: true
+//   }).then(res => {
+//     // getResponse: true 可以获取 headers 信息
+//     // console.log(res.headers.total)
+//     return res
+//   })
+// }
+
 export const login = data => {
   return axios({
     method: 'post',

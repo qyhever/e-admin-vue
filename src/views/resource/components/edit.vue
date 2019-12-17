@@ -92,13 +92,11 @@ export default {
     async query() {
       try {
         this.querying = true
-        const res = await getDirs()
-        if (res.success) {
-          this.dirs = [
-            {name: '无', code: null},
-            ...res.data
-          ]
-        }
+        const list = await getDirs()
+        this.dirs = [
+          {name: '无', code: null},
+          ...list
+        ]
       } catch (err) {
         console.log(err)
       } finally {
@@ -110,21 +108,18 @@ export default {
         if (valid) {
           try {
             this.submiting = true
-            let res = {}
             if (this.id) {
-              res = await updateResource({
+              await updateResource({
                 ...this.form,
                 id: this.id
               })
             } else {
-              res = await createResource(this.form)
+              await createResource(this.form)
             }
-            if (res.success) {
-              this.$message.closeAll()
-              this.$message.success(this.id ? '修改成功' : '添加成功')
-              this.visible = false
-              this.$emit('success')
-            }
+            this.$message.closeAll()
+            this.$message.success(this.id ? '修改成功' : '添加成功')
+            this.visible = false
+            this.$emit('success')
           } catch (err) {
             console.log(err)
           } finally {

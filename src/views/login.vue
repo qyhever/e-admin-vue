@@ -67,17 +67,16 @@ export default {
             }
             this.loading = true
             const response = await login(params)
-            if (response.success) {
-              this.$store.dispatch('user/initUser', response.data).then(path => {
-                this.$router.push(path)
-              }).catch(err => {
-                console.log(err)
-                this.$message.closeAll()
-                this.$message.warning('没有登录权限')
-              }).finally(() => {
-                this.loading = false
-              })
-            }
+            console.log(response)
+            this.$store.dispatch('user/initUser', response).then(path => {
+              this.$router.push(path)
+            }).catch(err => {
+              console.log(err)
+              this.$message.closeAll()
+              this.$message.warning('没有登录权限')
+            }).finally(() => {
+              this.loading = false
+            })
           } catch (err) {
             console.log(err)
           }

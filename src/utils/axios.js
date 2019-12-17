@@ -88,7 +88,7 @@ const instance = axios.create({
 
 /**
  * @param {Object} options 请求配置参数
- * @param {Boolean} [options.getResponseSchema=false] 是否直接返回 axios Response Schema
+ * @param {Boolean} [options.getResponse=false] 是否直接返回 axios Response Schema
  * @param {Boolean} [options.showWarningMsg=true] 是否显示接口错误提示（请求成功，但接口状态码非成功状态）
  * @param {Boolean} [options.showErrorMsg=true] 是否显示请求错误提示（请求失败）
  * @param {Boolean} [options.setLoading=false] 是否设置全局状态 app.loading
@@ -97,13 +97,13 @@ const instance = axios.create({
  */
 const _request = (
   {
-    getResponseSchema = false,
+    getResponse = false,
     showWarningMsg = true,
     showErrorMsg = true,
     setLoading = false,
     ...options
   } = {},
-  fn = () => { } // eslint-disable-line
+  fn = () => {} // eslint-disable-line
 ) => {
   removePending(options) // 在请求开始前，对之前的请求做检查取消操作
   addPending(options)
@@ -116,21 +116,28 @@ const _request = (
   return instance(options)
     .then(response => {
       removePending(response) // 在请求结束后，移除本次请求
-      if (getResponseSchema) { // return the axios Response Schema
+      if (getResponse) { // return the axios Response Schema
         return response
       }
       const responseData = response.data || {}
-      if (responseData.code === 1) { // success code
+       // success code
+      if (responseData.code === 1) {
         responseData.success = true
-      } else { // not success code
-        if (showWarningMsg) {
-          Message.closeAll()
-          Message.warning(responseData.msg || '操作失败')
-        }
+        return responseData.data || {}
       }
-      return responseData
+      // not success code
+      if (showWarningMsg) {
+        Message.closeAll()
+        Message.warning(responseData.msg || '操作失败')
+      }
+      const err = new Error(JSON.stringify(responseData, null, 2))
+      err.name = 'warning'
+      throw err
     })
     .catch(error => {
+      if (error.name === 'warning') {
+        throw error
+      }
       if (axios.isCancel(error)) {
         console.log('repeated request: ' + error.message)
         // if (showErrorMsg) {

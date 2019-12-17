@@ -114,14 +114,11 @@ export default {
     async query() {
       try {
         this.querying = true
-        const res = await getResources(this.params)
-        if (res.success) {
-          const data = res.data || {}
-          const list = data.list || []
-          const total = data.total || 0
-          this.list = list
-          this.total = total
-        }
+        const data = await getResources(this.params)
+        const list = data.list || []
+        const total = data.total || 0
+        this.list = list
+        this.total = total
       } catch (err) {
         console.log(err)
       } finally {
@@ -148,23 +145,21 @@ export default {
     },
     async handleToggleEnable(row) {
       try {
-        const res = await patchResource({
+        await patchResource({
           id: row.id,
           enable: !row.enable
         })
-        if (res.success) {
-          this.list = this.list.map(item => {
-            if (item.id === row.id) {
-              return {
-                ...item,
-                enable: !item.enable
-              }
+        this.list = this.list.map(item => {
+          if (item.id === row.id) {
+            return {
+              ...item,
+              enable: !item.enable
             }
-            return item
-          })
-          this.$message.closeAll()
-          this.$message.success('操作成功')
-        }
+          }
+          return item
+        })
+        this.$message.closeAll()
+        this.$message.success('操作成功')
       } catch (err) {
         console.log(err)
       } finally {
@@ -179,15 +174,13 @@ export default {
         type: 'warning'
       }).then(async () => {
         try {
-          const res = await deleteResource({
+          await deleteResource({
             id: row.id,
             type: row.type === '2' ? 'resource' : 'dir'
           })
-          if (res.success) {
-            this.query()
-            this.$message.closeAll()
-            this.$message.success('删除成功')
-          }
+          this.query()
+          this.$message.closeAll()
+          this.$message.success('删除成功')
         } catch (err) {
           console.log(err)
         } finally {

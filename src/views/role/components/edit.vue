@@ -89,12 +89,9 @@ export default {
     async query() {
       try {
         this.querying = true
-        const res = await getTotalResources()
-        if (res.success) {
-          const list = res.data || []
-          const result = listToTree(list, null, 'code', 'parentCode')
-          this.resourceList = result
-        }
+        const list = await getTotalResources()
+        const result = listToTree(list, null, 'code', 'parentCode')
+        this.resourceList = result
       } catch (err) {
         console.log(err)
       } finally {
@@ -106,28 +103,25 @@ export default {
         if (valid) {
           try {
             this.submiting = true
-            let res = {}
             const checkedNodes = this.$refs.tree.getCheckedNodes(false, false)
             const checkedNodeKeys = checkedNodes.map(item => item.id)
             const halfCheckedKeys = this.$refs.tree.getHalfCheckedKeys()
             if (this.id) {
-              res = await updateRole({
+              await updateRole({
                 ...this.form,
                 id: this.id,
                 resources: halfCheckedKeys.concat(checkedNodeKeys)
               })
             } else {
-              res = await createRole({
+              await createRole({
                 ...this.form,
                 resources: halfCheckedKeys.concat(checkedNodeKeys)
               })
             }
-            if (res.success) {
-              this.$message.closeAll()
-              this.$message.success(this.id ? '修改成功' : '添加成功')
-              this.visible = false
-              this.$emit('success')
-            }
+            this.$message.closeAll()
+            this.$message.success(this.id ? '修改成功' : '添加成功')
+            this.visible = false
+            this.$emit('success')
           } catch (err) {
             console.log(err)
           } finally {

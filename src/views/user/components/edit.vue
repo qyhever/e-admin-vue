@@ -109,10 +109,8 @@ export default {
     async query() {
       try {
         this.querying = true
-        const res = await getTotalRoles()
-        if (res.success) {
-          this.roles = res.data || []
-        }
+        const list = await getTotalRoles()
+        this.roles = list
       } catch (err) {
         console.log(err)
       } finally {
@@ -124,25 +122,22 @@ export default {
         if (valid) {
           try {
             this.submiting = true
-            let res = {}
             if (this.id) {
-              res = await updateUser({
+              await updateUser({
                 ...this.form,
                 id: this.id
               })
             } else {
               const { password, ...params } = this.form
-              res = await createUser({
+              await createUser({
                 ...params,
                 password: md5(md5(password))
               })
             }
-            if (res.success) {
-              this.$message.closeAll()
-              this.$message.success(this.id ? '修改成功' : '添加成功')
-              this.visible = false
-              this.$emit('success')
-            }
+            this.$message.closeAll()
+            this.$message.success(this.id ? '修改成功' : '添加成功')
+            this.visible = false
+            this.$emit('success')
           } catch (err) {
             console.log(err)
           } finally {

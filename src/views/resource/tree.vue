@@ -50,14 +50,11 @@ export default {
     async query() {
       try {
         this.querying = true
-        const res = await getTotalResources()
-        if (res.success) {
-          const list = res.data || []
-          const result = listToTree(list, null, 'code', 'parentCode')
-          const expandedKeys = result.map(item => item.code)
-          this.list = result
-          this.expandedKeys = expandedKeys
-        }
+        const list = await getTotalResources()
+        const result = listToTree(list, null, 'code', 'parentCode')
+        const expandedKeys = result.map(item => item.code)
+        this.list = result
+        this.expandedKeys = expandedKeys
       } catch (err) {
         console.log(err)
       } finally {
