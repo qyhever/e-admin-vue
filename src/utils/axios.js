@@ -37,7 +37,7 @@ const _setLoading = (setLoading, value) => {
 const pending = new Map()
 /**
  * 添加请求
- * @param {Object} config 
+ * @param {Object} config
  */
 const addPending = (config) => {
   const url = [
@@ -54,7 +54,7 @@ const addPending = (config) => {
 }
 /**
  * 移除请求
- * @param {Object} config 
+ * @param {Object} config
  */
 const removePending = (config) => {
   const url = [

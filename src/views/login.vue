@@ -65,8 +65,10 @@ export default {
               userName: this.form.userName,
               password: md5(md5(this.form.password))
             }
-            this.loading = true
-            const response = await login(params)
+            const response = await login(
+              loading => (this.loading = loading),
+              params
+            )
             console.log(response)
             this.$store.dispatch('user/initUser', response).then(path => {
               this.$router.push(path)
@@ -74,8 +76,6 @@ export default {
               console.log(err)
               this.$message.closeAll()
               this.$message.warning('没有登录权限')
-            }).finally(() => {
-              this.loading = false
             })
           } catch (err) {
             console.log(err)

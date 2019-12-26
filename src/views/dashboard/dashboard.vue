@@ -21,6 +21,12 @@ export default {
   },
   methods: {
     async query() {
+      // const [err, data] = await testReq()
+      // if (!err) {
+      //   console.log('success', data)
+      // } else {
+      //   console.log('fail')
+      // }
       // try {
       //   const res = await testReq()
       //   console.log(res)

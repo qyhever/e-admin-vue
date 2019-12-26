@@ -1,5 +1,11 @@
 import axios from '@/utils/axios'
 
+const to = (promise) => {
+  return promise
+    .then(data => [null, data])
+    .catch(err => [err, null])
+}
+
 // export const testReq = () => {
 //   return axios({
 //     method: 'get',
@@ -12,8 +18,15 @@ import axios from '@/utils/axios'
 //   })
 // }
 
-export const login = data => {
-  return axios({
+export const testReq = () => {
+  return to(axios({
+    method: 'get',
+    url: 'http://localhost:3000/users'
+  }))
+}
+
+export const login = (fn, data) => {
+  return axios(fn)({
     method: 'post',
     url: '/user/login',
     data

@@ -1,4 +1,4 @@
-import { setToken, removeToken, setUser, removeUser } from '@/utils/local'
+import { getUser, setToken, removeToken, setUser, removeUser } from '@/utils/local'
 import router, { resetRouter, asyncRoutes } from '@/router'
 import { filterAsyncRoutes } from './permission'
 function generateRoutes(resources) {
@@ -32,7 +32,18 @@ const actions = {
       resolve()
     })
   },
-  initUser({ commit, dispatch }, { token, userInfo }) {
+  initUser({ commit, dispatch }, data) {
+    // 处理页面刷新
+    if (!data) {
+      const user = getUser()
+      if (user) {
+        data = user
+      } else {
+        return dispatch('clearInfo')
+      }
+    }
+    // 处理用户主动登录
+    const { token, userInfo } = data
     return new Promise((resolve, reject) => {
       // generate accessible routes map based on resources
       const { resources } = userInfo
@@ -48,12 +59,12 @@ const actions = {
         router.addRoutes(routes)
 
         commit('SET_INFO', userInfo)
-        setUser(userInfo) // setUser local
+        setUser(data) // setUser local
         token && setToken(token) // setToken local
 
         resolve(redirectPath)
       } else {
-        dispatch('logout')
+        dispatch('clearInfo')
         reject(new Error('no accessRoutes'))
       }
     })
