@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import axios from '@/utils/axios'
+import { getQiniuToken } from '@/api/common'
 export default {
   props: {
     value: String
@@ -43,16 +43,14 @@ export default {
         return false
       }
       return new Promise((resolve, reject) => {
-        this.loading = true
-        axios.get('/upload/qiniu_token').then(res => {
-          const { token } = res.data
+        getQiniuToken(
+          loading => this.loading = loading
+        ).then(data => {
+          const { token } = data
           this.param.token = token
           this.param.key = new Date().getTime() + Math.random().toString(16).slice(2) + file.name
           resolve(true)
-        }).catch(err => {
-          this.loading = false
-          reject(err)
-        })
+        }).catch(reject)
       })
     }
   }
