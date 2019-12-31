@@ -17,6 +17,7 @@
 <script>
 import { getQiniuToken } from '@/api/common'
 export default {
+  name: 'UploadImageSingle',
   props: {
     value: String
   },

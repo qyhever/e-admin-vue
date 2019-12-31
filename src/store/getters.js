@@ -2,6 +2,7 @@ const getters = {
   collapse: state => state.app.collapse,
   loading: state => state.app.loading,
   userInfo: state => state.user.info,
-  routes: state => state.permission.routes
+  routes: state => state.permission.routes,
+  bread: state => state.permission.bread
 }
 export default getters

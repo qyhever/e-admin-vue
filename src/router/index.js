@@ -83,13 +83,16 @@ export const asyncRoutes = [
     path: '/user',
     redirect: '/user/index',
     component: Layout,
+    meta: {
+      title: '账号管理'
+    },
     children: [
       {
         name: 'user',
         path: 'index',
         component: () => import('@/views/user'),
         meta: {
-          title: '账号管理',
+          title: '账号列表',
           icon: 'user',
           auth: ['user']
         }
@@ -100,13 +103,16 @@ export const asyncRoutes = [
     path: '/role',
     redirect: '/role/index',
     component: Layout,
+    meta: {
+      title: '角色管理'
+    },
     children: [
       {
         name: 'role',
         path: 'index',
         component: () => import('@/views/role'),
         meta: {
-          title: '角色管理',
+          title: '角色列表',
           icon: 'role',
           auth: ['role']
         }
@@ -117,13 +123,16 @@ export const asyncRoutes = [
     path: '/resource',
     redirect: '/resource/index',
     component: Layout,
+    meta: {
+      title: '权限管理'
+    },
     children: [
       {
         name: 'resource',
         path: 'index',
         component: () => import('@/views/resource'),
         meta: {
-          title: '权限管理',
+          title: '权限列表',
           icon: 'resource',
           auth: ['resource']
         }

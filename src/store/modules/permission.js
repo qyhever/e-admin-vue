@@ -40,13 +40,17 @@ export function filterAsyncRoutes(routes, resourceCodes) {
 
 const state = {
   routes: [],
-  addRoutes: []
+  addRoutes: [],
+  bread: {}
 }
 
 const mutations = {
-  SET_ROUTES: (state, accessedRoutes) => {
+  SET_ROUTES(state, accessedRoutes) {
     state.addRoutes = accessedRoutes
     state.routes = constantRoutes.concat(accessedRoutes)
+  },
+  SET_BREAD(state, data) {
+    state.bread = data
   }
 }
 

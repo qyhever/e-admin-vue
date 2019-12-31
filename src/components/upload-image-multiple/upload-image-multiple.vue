@@ -16,9 +16,6 @@
       :on-error="onError">
       <i class="el-icon-plus"></i>
     </el-upload>
-    <el-dialog :visible.sync="dialogVisible">
-      <img width="100%" :src="dialogImageUrl" alt="preview">
-    </el-dialog>
   </div>
 </template>
 
@@ -26,6 +23,7 @@
 import { getQiniuToken } from '@/api/common'
 import { debounce } from 'lodash'
 export default {
+  name: 'UploadImageMultiple',
   props: {
     value: {
       type: Array,
@@ -34,12 +32,14 @@ export default {
     limit: {
       type: Number,
       default: 4
+    },
+    onPreview: {
+      type: Function,
+      default: () => ({})
     }
   },
   data() {
     return {
-      dialogImageUrl: '', // 当前预览图片地址
-      dialogVisible: false, // 预览弹框 visible
       param: {
         token: '',
         key: ''
@@ -63,18 +63,18 @@ export default {
     handleUploadExceed() {
       this.$message.error(`最多上传${this.limit}张图片`)
     },
-    handlePictureCardPreview(file) {
-      this.dialogImageUrl = file.url
-      this.dialogVisible = true
+    handlePictureCardPreview() {
+      const urls = this.$refs.upload.uploadFiles.map(({ url }) => url)
+      this.onPreview(urls)
     },
     handlebeforeUpload(file) {
       return this.addFile(file)
     },
     syncUploadFiles () {
       // 这里最后意为排除掉 blob 开头的 URL（这算是一个坑），此时 files 有可能是空数组
-      const files = this.$refs.upload.uploadFiles.map(({ url }) => url).filter(url => url.startsWith('http'))
+      const urls = this.$refs.upload.uploadFiles.map(({ url }) => url).filter(url => url.startsWith('http'))
       // 对于无论是否 multiple，ElUpload 的 $data.uploadFiles 始终都是数组类型
-      this.$emit('input', files)
+      this.$emit('input', urls)
     },
     onProgress ({ percent }) {
       this.percent = percent | 0

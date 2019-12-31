@@ -2,8 +2,13 @@
  * global components
  */
 import Vue from 'vue'
-import UploadImageSingle from '@/components/upload-image-single'
-import UploadImageMultiple from '@/components/upload-image-multiple'
+// https://webpack.js.org/guides/dependency-management/#requirecontext
+const modulesFiles = require.context('@/components', true, /\.vue$/)
 
-Vue.component('ComUploadImageSingle', UploadImageSingle)
-Vue.component('ComUploadImageMultiple', UploadImageMultiple)
+modulesFiles.keys().forEach(modulePath => {
+  // set './CountUp.Vue' => 'CountUp'
+  // const moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1')
+  const component = modulesFiles(modulePath).default
+  // register global components, you can user it through 'ComCountUp' or 'com-count-up'
+  Vue.component('Com' + component.name, component)
+})
