@@ -10,7 +10,6 @@ import './plugins'
 import Element from 'element-ui'
 import './assets/styles/element-variables.scss'
 
-import 'normalize.css'
 import './assets/styles/index.scss'
 import './filters'
 getLocalCity().then(console.log)

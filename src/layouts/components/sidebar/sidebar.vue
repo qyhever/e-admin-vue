@@ -76,7 +76,7 @@ export default {
     left: 0;
     top: 0;
     bottom: 0;
-    width: 210px;
+    width: $slide-width;
     height: 100%;
     background-color: #161B37;
     transition: width 0.3s;

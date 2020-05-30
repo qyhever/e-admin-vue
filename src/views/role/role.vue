@@ -1,5 +1,5 @@
 <template>
-  <div class="com-container">
+  <div class="com-container" v-loading="querying">
     <el-form class="com-form media-form" label-width="80px" size="small">
       <el-row :gutter="20">
         <el-col :span="6">
@@ -15,7 +15,7 @@
         </el-col>
       </el-row>
     </el-form>
-    <el-table class="com-table" :data="list" v-loading="querying" @sort-change="handleSortChange">
+    <el-table class="com-table" :data="list" @sort-change="handleSortChange">
       <el-table-column align="center" prop="name" label="角色名" />
       <el-table-column align="center" prop="description" label="角色描述" />
       <el-table-column align="center" label="添加时间" prop="createdAt" sortable="custom">
@@ -130,6 +130,7 @@
           type: 'warning'
         }).then(async () => {
           try {
+            this.querying = true
             await deleteRole({
               id: row.id
             })
@@ -138,6 +139,8 @@
             this.query()
           } catch (err) {
             console.log(err)
+          } finally {
+            this.querying = false
           }
         })
       }

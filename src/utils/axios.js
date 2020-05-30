@@ -107,9 +107,9 @@ const _request = (
 ) => {
   removePending(options) // 在请求开始前，对之前的请求做检查取消操作
   addPending(options)
+  options.headers = options.headers || {}
   const token = getToken()
   if (token) {
-    options.headers = options.headers || {}
     options.headers.Authorization = token
   }
   _setLoading(setLoading, true)
@@ -144,27 +144,27 @@ const _request = (
         //   Message.closeAll()
         //   Message.warning('正在请求中，请不要重复操作')
         // }
+        return new Promise(() => {}) // eslint-disable-line
+      }
+      let msg = ''
+      if (error.response) {
+        const status = error.response.status
+        msg = codeMessage[status] || '操作失败'
+        if (status === 401) {
+          store.dispatch('user/clearInfo').then(() => {
+            router.replace('/login')
+          })
+        }
       } else {
-        let msg = ''
-        if (error.response) {
-          const status = error.response.status
-          msg = codeMessage[status] || '操作失败'
-          if (status === 401) {
-            store.dispatch('user/clearInfo').then(() => {
-              router.replace('/login')
-            })
-          }
+        if (error.message.indexOf('timeout') >= 0) {
+          msg = '请求超时！请检查网络是否正常'
         } else {
-          if (error.message.indexOf('timeout') >= 0) {
-            msg = '请求超时！请检查网络是否正常'
-          } else {
-            msg = '网络错误，请检查网络是否已连接！'
-          }
+          msg = '网络错误，请检查网络是否已连接！'
         }
-        if (showErrorMsg) {
-          Message.closeAll()
-          Message.error(msg)
-        }
+      }
+      if (showErrorMsg) {
+        Message.closeAll()
+        Message.error(msg)
       }
       throw error
     })

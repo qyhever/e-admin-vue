@@ -35,12 +35,15 @@ export const constantRoutes = [
 // 动态鉴权路由
 export const asyncRoutes = [
   {
-    path: '/',
+    path: '/dashboard',
     component: Layout,
+    meta: {
+      title: '仪表盘'
+    },
     children: [
       {
         name: 'dashboard',
-        path: '/dashboard',
+        path: '',
         component: () => import('@/views/dashboard'),
         meta: {
           title: '仪表盘',
@@ -76,6 +79,15 @@ export const asyncRoutes = [
           title: '二维码',
           auth: ['qrcode']
         }
+      },
+      {
+        name: 'uploadImage',
+        path: 'upload-image',
+        component: () => import('@/views/base/upload-image'),
+        meta: {
+          title: '上传图片',
+          auth: ['uploadImage']
+        }
       }
     ]
   },
@@ -83,6 +95,10 @@ export const asyncRoutes = [
     path: '/user',
     redirect: '/user/index',
     component: Layout,
+    meta: {
+      title: '账号管理',
+      auth: ['user']
+    },
     children: [
       {
         name: 'user',
@@ -90,8 +106,8 @@ export const asyncRoutes = [
         component: () => import('@/views/user'),
         meta: {
           title: '账号管理',
-          icon: 'user',
-          auth: ['user']
+          bread: '账号列表',
+          icon: 'user'
         }
       }
     ]
@@ -100,6 +116,10 @@ export const asyncRoutes = [
     path: '/role',
     redirect: '/role/index',
     component: Layout,
+    meta: {
+      title: '角色管理',
+      auth: ['role']
+    },
     children: [
       {
         name: 'role',
@@ -107,8 +127,8 @@ export const asyncRoutes = [
         component: () => import('@/views/role'),
         meta: {
           title: '角色管理',
-          icon: 'role',
-          auth: ['role']
+          bread: '角色列表',
+          icon: 'role'
         }
       }
     ]
@@ -117,6 +137,10 @@ export const asyncRoutes = [
     path: '/resource',
     redirect: '/resource/index',
     component: Layout,
+    meta: {
+      title: '权限管理',
+      auth: ['resource']
+    },
     children: [
       {
         name: 'resource',
@@ -124,8 +148,8 @@ export const asyncRoutes = [
         component: () => import('@/views/resource'),
         meta: {
           title: '权限管理',
-          icon: 'resource',
-          auth: ['resource']
+          bread: '权限列表',
+          icon: 'resource'
         }
       }
     ]
@@ -134,14 +158,17 @@ export const asyncRoutes = [
     path: '/admin',
     redirect: '/admin/index',
     component: Layout,
+    meta: {
+      title: 'admin管理',
+      auth: ['adminPage']
+    },
     children: [
       {
         name: 'admin',
         path: 'index',
         meta: {
           title: 'admin页面',
-          icon: 'admin',
-          auth: ['adminPage']
+          icon: 'admin'
         },
         component: () => import('@/views/permission/admin')
       }
@@ -151,14 +178,17 @@ export const asyncRoutes = [
     path: '/dev',
     redirect: '/dev/index',
     component: Layout,
+    meta: {
+      title: 'dev管理',
+      auth: ['devPage']
+    },
     children: [
       {
         name: 'dev',
         path: 'index',
         meta: {
           title: 'dev页面',
-          icon: 'dev',
-          auth: ['devPage']
+          icon: 'dev'
         },
         component: () => import('@/views/permission/dev')
       }
@@ -168,14 +198,17 @@ export const asyncRoutes = [
     path: '/guest',
     redirect: '/guest/index',
     component: Layout,
+    meta: {
+      title: 'guest管理',
+      auth: ['guestPage']
+    },
     children: [
       {
         name: 'guest',
         path: 'index',
         meta: {
           title: 'guest页面',
-          icon: 'guest',
-          auth: ['guestPage']
+          icon: 'guest'
         },
         component: () => import('@/views/permission/guest')
       }
@@ -185,14 +218,17 @@ export const asyncRoutes = [
     path: '/test',
     redirect: '/test/index',
     component: Layout,
+    meta: {
+      title: 'test管理',
+      auth: ['testPage']
+    },
     children: [
       {
         name: 'test',
         path: 'index',
         meta: {
           title: 'test页面',
-          icon: 'test',
-          auth: ['testPage']
+          icon: 'test'
         },
         component: () => import('@/views/permission/test')
       }
@@ -202,14 +238,17 @@ export const asyncRoutes = [
     path: '/operation',
     redirect: '/operation/index',
     component: Layout,
+    meta: {
+      title: 'operation管理',
+      auth: ['operationPage']
+    },
     children: [
       {
         name: 'operation',
         path: 'index',
         meta: {
           title: 'operation页面',
-          icon: 'operation',
-          auth: ['operationPage']
+          icon: 'operation'
         },
         component: () => import('@/views/permission/operation')
       }
@@ -224,8 +263,8 @@ export const asyncRoutes = [
 
 // 生成路由实例
 const createRouter = () => new Router({
-  mode: 'history',
-  base: '/e-admin-vue/',
+  mode: process.env.IS_HISTORY ? 'history' : 'hash',
+  base: process.env.IS_HISTORY ? '/e-admin-vue/' : '/',
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })

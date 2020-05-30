@@ -1,5 +1,5 @@
 <template>
-  <div class="com-container">
+  <div class="com-container" v-loading="querying">
     <el-form class="com-form media-form" label-width="80px" size="small">
       <el-row :gutter="20">
         <el-col :span="6">
@@ -29,7 +29,7 @@
         </el-col>
       </el-row>
     </el-form>
-    <el-table class="com-table" :data="list" v-loading="querying">
+    <el-table class="com-table" :data="list">
 			<el-table-column align="center" label="头像">
         <template slot-scope="{row}">
           <img class="avatar" v-if="row.avatar" :src="row.avatar" alt="加载失败">
@@ -163,6 +163,7 @@ export default {
     },
     async handleToggleEnable(row) {
       try {
+        this.querying = true
         await patchUser({
           id: row.id,
           enable: !row.enable
@@ -181,7 +182,7 @@ export default {
       } catch (err) {
         console.log(err)
       } finally {
-        // ...
+        this.querying = false
       }
     }
   }

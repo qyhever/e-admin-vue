@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import * as enums from '@/utils/enum'
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 const filters = {
   formatDate(date) {
-    return moment(date).format('YYYY-MM-DD')
+    return dayjs(date).format('YYYY-MM-DD')
   },
   formatDateTime(date) {
-    return moment(date).format('YYYY-MM-DD HH:mm:ss')
+    return dayjs(date).format('YYYY-MM-DD HH:mm:ss')
   }
 }
 

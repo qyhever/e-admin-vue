@@ -28,7 +28,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="父级菜单: " prop="parentCode">
-        <el-select v-model="form.parentCode" style="width: 100%">
+        <el-select v-if="!type" v-model="form.parentCode" style="width: 100%">
           <el-option
             v-for="item in dirs"
             :key="item.id"
@@ -36,6 +36,7 @@
             :value="item.code"
           />
         </el-select>
+        <span v-else>{{parentNodeText}}</span>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -55,6 +56,8 @@ export default {
       visible: false,
       title: '添加',
       id: null,
+      type: '',
+      parentNodeText: '',
       dirs: [],
       form: {
         name: '',
@@ -73,11 +76,11 @@ export default {
     }
   },
   methods: {
-    open(row) {
+    open(row, type) {
       this.visible = true
       this.title = row ? '编辑' : '添加'
-      this.query()
-      if (row) {
+      if (!type && row) {
+        this.query()
         this.id = row.id
         this.$nextTick(() => {
           this.form = {
@@ -86,6 +89,13 @@ export default {
             type: row.type,
             parentCode: row.parentCode
           }
+        })
+      }
+      if (type === 'treeAdd') {
+        this.type = type
+        this.$nextTick(() => {
+          this.form.parentCode = row.code
+          this.parentNodeText = row.name
         })
       }
     },

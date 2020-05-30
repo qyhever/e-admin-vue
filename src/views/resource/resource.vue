@@ -2,22 +2,22 @@
   <div class="com-container">
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <el-tab-pane label="树状查看" name="tree">
-        <tree />
+        <tab-tree />
       </el-tab-pane>
       <el-tab-pane label="列表查看" name="list">
-        <list />
+        <tab-list />
       </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 
 <script>
-import Tree from './tree'
-import List from './list'
+import TabTree from './tab-tree'
+import TabList from './tab-list'
 export default {
   components: {
-    Tree,
-    List
+    TabTree,
+    TabList
   },
   data() {
     return {

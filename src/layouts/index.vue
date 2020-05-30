@@ -36,8 +36,10 @@ export default {
 .main-container {
   position: relative;
   min-height: 100vh;
+  padding-top: $header-height;
   margin-left: 210px;
   transition: margin-left 0.3s;
+  background-color: #f0f2f5;
 }
 .main {
   position: relative;
@@ -48,6 +50,7 @@ export default {
 .footer {
   height: $footer-height;
   padding: 22px 0;
+  background-color: #fff;
   color: rgba(0, 0, 0, .65);
   font-size: 14px;
   text-align: center;

@@ -1,4 +1,4 @@
-
+const AMap = window.AMap
 export function listToTree(list, id, key, parentKey) {
   const ret = []
   const temp = list.filter(v => v[parentKey] === id)

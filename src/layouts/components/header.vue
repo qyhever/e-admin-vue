@@ -57,9 +57,15 @@ export default {
 
 <style lang="scss" scoped>
   .header {
+    z-index: 1999;
+    position: fixed;
+    top: 0;
+    left: $slide-width;
+    right: 0;
     height: $header-height;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
-    // box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+    box-shadow: 4px 4px 40px 0 rgba(0,0,0,.05);
+    background-color: #fff;
+    transition: left 0.3s;
     .menu-button-wrapper {
       float: left;
       width: 60px;

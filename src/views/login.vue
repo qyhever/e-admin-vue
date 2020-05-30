@@ -1,14 +1,14 @@
 <template>
   <div class="login">
-    <div class="form">
+    <div class="form-container">
       <div class="logo">
-        <h1 class="title">后台管理系统</h1>
+        <h1 class="title">登录</h1>
       </div>
-      <el-form :model="form" status-icon :rules="rules" ref="form">
-        <el-form-item prop="userName" size="small">
+      <el-form class="form" :model="form" status-icon :rules="rules" ref="form">
+        <el-form-item prop="userName" size="large">
           <el-input type="text" v-model.trim="form.userName" placeholder="账号" autocomplete="off" />
         </el-form-item>
-        <el-form-item prop="password" size="small">
+        <el-form-item prop="password" size="large">
           <el-input
             type="password"
             v-model="form.password"
@@ -21,7 +21,7 @@
           <el-button
             class="submit-btn"
             type="primary"
-            size="small"
+            size="large"
             :loading="loading"
             @click="submitForm">
             提交
@@ -70,8 +70,8 @@ export default {
               params
             )
             console.log(response)
-            this.$store.dispatch('user/initUser', response).then(path => {
-              this.$router.push(path)
+            this.$store.dispatch('user/initUser', response).then(() => {
+              this.$router.push('/')
             }).catch(err => {
               console.log(err)
               this.$message.closeAll()
@@ -94,33 +94,64 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #2d3a4b;
-  .form {
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    width: 320px;
-    padding: 32px;
-    margin-left: -192px;
-    box-shadow: 0 0 100px rgba(255, 255, 255, 0.2);
-    background-color: #f6f6f6;
-    .logo {
-      margin-bottom: 24px;
-      text-align: center;
-      .title {
-        font-weight: 400;
-        color: #aaa;
-        font-family: Microsoft Yahei;
-      }
-    }
-    .submit-btn {
+  background: linear-gradient(-135deg, #00dbde, #fc00ff);
+}
+.form-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 670px;
+  transform: translate(-50%, -50%);
+  border-radius: 6px;
+  box-shadow: 0 0 100px rgba(255, 255, 255, 0.2);
+  background-color: #fff;
+  .logo {
+    z-index: 1;
+    position: relative;
+    height: 180px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('~@/assets/images/login.jpg');
+    border-radius: 6px 6px 0 0;
+    &:after {
+      z-index: -1;
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
+      height: 100%;
+      background-color: rgba(54, 84, 99, 0.7);
+      border-radius: 6px 6px 0 0;
     }
-    .account {
-      display: flex;
-      justify-content: space-between;
-      color: #ccc;
+    .title {
+      font-weight: 400;
+      color: #fff;
+      font-family: Microsoft Yahei;
+      margin: 0;
     }
+  }
+  .form {
+    padding: 50px 120px;
+    /deep/ .el-input__inner {
+      border-top: 0;
+      border-left: 0;
+      border-right: 0;
+      border-radius: 0;
+    }
+  }
+  .submit-btn {
+    width: 100%;
+    margin: 20px 0;
+    background: linear-gradient(-135deg, #00dbde, #fc00ff);
+    border: 0;
+  }
+  .account {
+    display: flex;
+    justify-content: space-between;
+    color: #ccc;
   }
 }
 </style>

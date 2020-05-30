@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-loading="querying">
     <el-form class="com-form media-form" label-width="80px" size="small">
       <el-row :gutter="20">
         <el-col :span="6">
@@ -32,7 +32,6 @@
     <el-table
       class="com-table"
       :data="list"
-      v-loading="querying"
       @sort-change="handleSortChange">
 			<el-table-column align="center" prop="name" label="权限名" />
 			<el-table-column align="center" prop="code" label="权限编码" sortable="custom" />

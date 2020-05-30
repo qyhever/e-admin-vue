@@ -1,24 +1,24 @@
 import { getUser, setToken, removeToken, setUser, removeUser } from '@/utils/local'
-import router, { resetRouter, asyncRoutes } from '@/router'
-import { filterAsyncRoutes } from './permission'
-function generateRoutes(resources) {
-  const resourceCodes = resources.map(item => item.code)
-  let accessedRoutes = []
-  try {
-    accessedRoutes = filterAsyncRoutes(asyncRoutes, resourceCodes)
-  } catch (err) {
-    console.log(err)
-  }
-  return accessedRoutes
-}
+import router, { resetRouter, constantRoutes } from '@/router'
+import { generateRoutes, generateBreadByRoutes } from '@/utils/permission'
 
 const state = {
-  info: {}
+  info: {},
+  routes: [],
+  accessRoutes: [],
+  bread: {}
 }
 
 const mutations = {
   SET_INFO(state, data) {
     state.info = data
+  },
+  SET_ROUTES(state, accessedRoutes) {
+    state.addRoutes = accessedRoutes
+    state.routes = constantRoutes.concat(accessedRoutes)
+  },
+  SET_BREAD(state, routes) {
+    state.bread = generateBreadByRoutes(routes)
   }
 }
 
@@ -49,20 +49,16 @@ const actions = {
       const { resources } = userInfo
       const accessRoutes = generateRoutes(resources)
       if (accessRoutes.length) {
-        const redirectPath = accessRoutes[0].path === '/' ? '/dashboard' : accessRoutes[0].path
-        const routes = [{
-          path: '/',
-          redirect: redirectPath,
-          hidden: true
-        }, ...accessRoutes]
-        commit('permission/SET_ROUTES', routes, {root: true})
-        router.addRoutes(routes)
+        // commit('permission/SET_ROUTES', routes, {root: true})
+        commit('SET_ROUTES', accessRoutes)
+        router.addRoutes(accessRoutes)
+        commit('SET_BREAD', accessRoutes)
 
         commit('SET_INFO', userInfo)
         setUser(data) // setUser local
         token && setToken(token) // setToken local
 
-        resolve(redirectPath)
+        resolve()
       } else {
         dispatch('clearInfo')
         reject(new Error('no accessRoutes'))

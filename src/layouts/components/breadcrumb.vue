@@ -11,25 +11,6 @@
 </template>
 
 <script>
-// 每次添加路由都需要配置对应的面包屑
-const breadcumbs = {
-  '/': '首页',
-  '/dashboard': '仪表盘',
-  '/components': '组件',
-  '/components/clipboard': '复制',
-  '/components/qrcode': '二维码',
-  '/user': '账号管理',
-  '/user/index': '账号列表',
-  '/role': '角色管理',
-  '/role/index': '角色列表',
-  '/resource': '权限管理',
-  '/resource/index': '权限列表',
-  '/admin': 'admin页面',
-  '/dev': 'dev页面',
-  '/guest': 'guest页面',
-  '/test': 'test页面',
-  '/operation': 'operation页面'
-}
 function getBreadcrumbs(breads, path) {
   const matches = []
   path
@@ -66,7 +47,7 @@ export default {
     $route: {
       immediate: true,
       handler(newRoute) {
-        this.list = getBreadcrumbs(breadcumbs, newRoute.path)
+        this.list = getBreadcrumbs(this.$store.getters.bread, newRoute.path)
       }
     }
   }
@@ -77,16 +58,8 @@ export default {
   .breadcrumb {
     position: relative;
     height: $bread-height;
-    padding: 12px;
-    &:after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 1px;
-      background-color: #d8dce5;
-    }
+    line-height: 15px;
+    padding: 20px 20px 0;
   }
   /* breadcrumb transition */
 	.breadcrumb-enter-active,

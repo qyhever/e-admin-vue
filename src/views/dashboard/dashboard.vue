@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="com-container">
     dashboard
     {{msg}}
     {{tooltip}}
