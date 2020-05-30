@@ -60,9 +60,7 @@ export default {
       }
       return new Promise((resolve, reject) => {
         this.loading = true
-        axios({
-          url: '/upload/qiniu_token'
-        })
+        getQiniuToken()
           .then(res => {
             const { token } = res
             this.param.token = token

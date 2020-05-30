@@ -69,9 +69,9 @@ export default {
               loading => (this.loading = loading),
               params
             )
-            this.$store.dispatch('user/initUser', response).then(path => {
+            this.$store.dispatch('user/initUser', response).then(() => {
               this.$message.closeAll()
-              this.$router.push(path)
+              this.$router.push('/')
             }).catch(err => {
               console.log(err)
               this.$message.closeAll()
