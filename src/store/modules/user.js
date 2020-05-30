@@ -2,6 +2,28 @@ import { getUser, setToken, removeToken, setUser, removeUser } from '@/utils/loc
 import router, { resetRouter, constantRoutes } from '@/router'
 import { generateRoutes, generateBreadByRoutes } from '@/utils/permission'
 
+function generateBreadByRoutes(routes) {
+  const result = {}
+  function pathMapToTitle(list, parentPath) {
+    list.forEach(item => {
+      if (!result[item.path]) {
+        if (item.meta && item.path) {
+          if (parentPath && !item.path.startsWith('/')) { // 非绝对路径拼接处理
+            result[parentPath + '/' + item.path] = item.meta.bread || item.meta.title
+          } else { // 绝对路径直接取 path
+            result[item.path] = item.meta.bread || item.meta.title
+          }
+        }
+        if (Array.isArray(item.children)) {
+          pathMapToTitle(item.children, item.path)
+        }
+      }
+    })
+  }
+  pathMapToTitle(routes)
+  return result
+}
+
 const state = {
   info: {},
   routes: [],
@@ -26,6 +48,8 @@ const actions = {
   clearInfo({ commit }) {
     return new Promise(resolve => {
       commit('SET_INFO', {})
+      commit('permission/SET_BREAD', {}, {root: true})
+      commit('permission/SET_ROUTES', [], {root: true})
       removeUser() // removeUser local
       removeToken() // removeToken local
       resetRouter()

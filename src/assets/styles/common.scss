@@ -5,6 +5,11 @@
 // html * {
 //   outline: 1px solid pink;
 // }
+.el-menu-item {
+  &.is-active, &.is-active:hover, &:focus {
+    background-color: #346fff !important;
+  }
+}
 .app-wrapper {
   > .sidebar-container {
     // reset element-ui css
@@ -44,31 +49,31 @@
       .submenu-title-nodropdown {
         padding: 0 !important;
         position: relative;
-        
+
         .el-tooltip {
           padding: 0 !important;
-        
+
           .svg-icon {
             margin-left: 20px;
           }
         }
       }
-        
+
       .el-submenu {
         overflow: hidden;
         &>.el-submenu__title {
           padding: 0 !important;
-        
+
           .svg-icon {
             margin-left: 20px;
           }
-        
+
           .el-submenu__icon-arrow {
             display: none;
           }
         }
       }
-        
+
       .el-menu--collapse {
         .el-submenu {
           &>.el-submenu__title {
@@ -109,7 +114,7 @@
 }
 .media-form {
   flex: 0 0 auto;
-  
+
   .el-row {
     flex-wrap: wrap;
   }

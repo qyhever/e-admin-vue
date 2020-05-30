@@ -87,11 +87,11 @@ export default {
       .el-menu-item {
         height: 50px;
         line-height: 50px;
-        &.is-active, &.is-active:hover, &:focus {
-          background-color: #346fff !important;
-        }
         &:hover {
           background-color: #0b1133 !important;
+        }
+        &.is-active, &.is-active:hover, &:focus {
+          background-color: #346fff !important;
         }
       }
     }

@@ -21,8 +21,9 @@
 </template>
 
 <script>
-import axios from '@/utils/axios'
+import { getQiniuToken } from '@/api/common'
 export default {
+  name: 'UploadImageSingle',
   props: {
     value: String
   },

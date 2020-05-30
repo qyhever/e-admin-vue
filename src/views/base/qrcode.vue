@@ -1,6 +1,7 @@
 <template>
   <div>
-    qrcode
+    <ComUploadImageMultiple v-model="urls" :on-preview="onPreview"></ComUploadImageMultiple>
+    <ComImageViewer ref="imageViewer"></ComImageViewer>
   </div>
 </template>
 
