@@ -6,47 +6,31 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 const externals = {
-  'vue': 'Vue',
-  'vue-router': 'VueRouter',
-  'vuex': 'Vuex',
-  'axios': 'axios'
+  // 'vue': 'Vue'
 }
 const cdn = {
   dev: {
     css: [],
     js: [
-      '//qiniu.qyhever.com/lib/vue/2.6.10/vue.js',
-      '//qiniu.qyhever.com/lib/vue-router/3.1.3/vue-router.js',
-      '//qiniu.qyhever.com/lib/vuex/3.1.1/vuex.js',
-      '//qiniu.qyhever.com/lib/axios/0.18.0/axios.js',
-      // '//qiniu.qyhever.com/lib/echarts/4.0.4/echarts.js'
       '//qiniu.qyhever.com/lib/babel-polyfill/7.6.0/polyfill.js'
     ]
   },
   build: {
     css: [],
     js: [
-      '//qiniu.qyhever.com/lib/vue/2.6.10/vue.min.js',
-      '//qiniu.qyhever.com/lib/vue-router/3.1.3/vue-router.min.js',
-      '//qiniu.qyhever.com/lib/vuex/3.1.1/vuex.min.js',
-      '//qiniu.qyhever.com/lib/axios/0.18.0/axios.min.js',
-      // '//qiniu.qyhever.com/lib/echarts/4.0.4/echarts.min.js',
-      '//qiniu.qyhever.com/lib/babel-polyfill/7.6.0/polyfill.min.js'
+      'https://qiniu.qyhever.com/lib/babel-polyfill/7.6.0/polyfill.min.js'
     ]
   }
 }
 module.exports = {
   publicPath: '/e-admin-vue/',
+  productionSourceMap: false,
   devServer: {
     port: 9000,
     overlay: {
       warnings: true,
       errors: true
     }
-    // proxy: {
-    //   // change xxx-api/login => mock/login
-    //   // detail: https://cli.vuejs.org/config/#devserver-proxy
-    // }
   },
   pluginOptions: {
     // import global scss variables and mixins
@@ -83,7 +67,7 @@ module.exports = {
       .use('image-webpack-loader')
       .loader('image-webpack-loader')
       .options({
-          disable: isDev
+        disable: isDev
       })
 
     // 将 cdn 变量 插入到 html 文件中（可以通过 htmlWebpackPlugin.options.cdn 访问）
@@ -98,6 +82,5 @@ module.exports = {
       args[0]['process.env'].IS_HISTORY = JSON.stringify(!!isHistory)
       return args
     })
-  },
-  productionSourceMap: false
+  }
 }

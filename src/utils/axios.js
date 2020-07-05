@@ -121,7 +121,7 @@ const _request = (
       }
       const responseData = response.data || {}
        // success code
-      if (responseData.code === 1) {
+      if (responseData.success) {
         responseData.success = true
         return responseData.data || {}
       }

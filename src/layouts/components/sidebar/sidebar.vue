@@ -17,23 +17,6 @@
         router
       >
         <sidebar-item v-for="(route, index) in routes" :key="index" :item="route" :base-path="route.path" />
-        <!-- <template v-for="item in routes">
-          <template v-if="item.children && item.children.length > 1">
-            <el-submenu :index="item.path" :key="item.path">
-              <template slot="title">
-                <span>{{item.meta.title}}</span>
-              </template>
-              <el-menu-item v-for="(subItem) in item.children" :key="subItem.path" :index="subItem.path">
-                {{subItem.meta.title}}
-              </el-menu-item>
-            </el-submenu>
-          </template>
-          <template v-else>
-            <el-menu-item :index="item.children[0].path" :key="item.children[0].path">
-              <span>{{item.children[0].meta.title}}</span>
-            </el-menu-item>
-          </template>
-        </template> -->
       </el-menu>
     </el-scrollbar>
   </div>
@@ -59,7 +42,6 @@ export default {
   methods: {
     activeMenu() {
       const { meta, path } = this.$route
-      // if set activeMenu, the sidebar will highlight the path you set
       if (meta && meta.activeMenu) {
         return meta.activeMenu
       }
