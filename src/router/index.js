@@ -260,7 +260,7 @@ export const asyncRoutes = [
     hidden: true
   }
 ]
-
+console.log('process.env.IS_HISTORY', process.env.IS_HISTORY)
 // 生成路由实例
 const createRouter = () => new Router({
   mode: process.env.IS_HISTORY ? 'history' : 'hash',

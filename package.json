@@ -7,9 +7,11 @@
     "dev": "npm run serve",
     "serve": "vue-cli-service serve --color --copy",
     "build": "vue-cli-service build --mode prod",
+    "build:hash": "npm run build",
+    "build:history": "npm run build --history",
     "lint": "vue-cli-service lint",
     "lint:fix": "eslint --fix --ext .js,.vue src",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build:hash",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {

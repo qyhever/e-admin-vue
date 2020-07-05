@@ -1,7 +1,7 @@
 const path = require('path')
 const isDev = process.env.NODE_ENV === 'development'
 const isHistory = process.env.npm_config_history || false
-
+console.log('process.env.npm_config_history', process.env.npm_config_history)
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
