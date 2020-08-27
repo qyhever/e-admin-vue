@@ -276,5 +276,18 @@ export function resetRouter() {
   const newRouter = createRouter()
   router.matcher = newRouter.matcher
 }
+// 路由懒加载的情况下，访问当前应用进行路由跳转时都是实时动态的从服务器上拉取相应模块的js文件
+// 如果我们改完代码打包上线，js文件名更换了，路由跳转的时候由于页面并未刷新，所以还是访问的原来的文件名，就会出现找不到模块的错误。
+// 此错误只会发生在生产环境
+// 一般不用刻意处理，刷新浏览器就 ok 了
+// 代码 hack，监听到路由报错之后进行页面刷新操作
+router.onError(error => {
+  const pattern = /Loading chunk .+ failed/g
+  const isChunkLoadFailed = error.message.match(pattern)
+  const targetPath = router.history.pending.fullPath
+  if (isChunkLoadFailed) {
+    router.replace(targetPath)
+  }
+})
 
 export default router
