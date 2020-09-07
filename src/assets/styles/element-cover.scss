@@ -18,3 +18,7 @@
 .el-radio-button:focus:not(.is-focus):not(:active):not(.is-disabled) {
   box-shadow: 0 0 2px 2px transparent;
 }
+
+.el-tree-node__content {
+  height: 32px;
+}

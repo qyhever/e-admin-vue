@@ -1,0 +1,25 @@
+.page-wrapper {
+  min-height: calc(100vh - #{$header-height});
+  padding: 20px;
+  background-color: $primary-bg-color;
+  &.hasBread {
+    padding: 0 20px 20px;
+  }
+  &.isColumn {
+    display: flex;
+    flex-direction: column;
+    min-height: auto;
+    height: calc(100vh - #{$header-height});
+    > .page-container {
+      flex: auto;
+    }
+  }
+  > .page-container {
+    border-radius: 4px;
+    padding: 18px;
+    background-color: #fff;
+  }
+  > .breadcrumb {
+    padding: 18px 0;
+  }
+}

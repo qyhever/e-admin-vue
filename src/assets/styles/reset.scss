@@ -13,6 +13,7 @@ menu, nav, output, ruby, section, summary,
 time, mark, audio, video, input {
   margin: 0;
   padding: 0;
+  outline: none;
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -64,8 +65,12 @@ u {
   font-style: normal;
 }
 
-html, body, #app {
-  height: 100%;
+a {
+  text-decoration: none;
+}
+
+a:hover, a:active, a:visited, a:focus {
+  text-decoration: none;
 }
 
 html {
@@ -77,15 +82,13 @@ body {
   text-rendering: optimizeLegibility;
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
   font-size: 14px;
+  color: #2c3e50;
 }
 
 *, :after, :before {
   box-sizing: inherit;
 }
-a {
-  text-decoration: none;
-}
 
-a:hover, a:active, a:visited, a:focus {
-  text-decoration: none;
+html, body, #app {
+  // height: 100%;
 }

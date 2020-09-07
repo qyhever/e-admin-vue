@@ -1,5 +1,11 @@
 <template>
-  <div>
+  <ComPage>
     clipboard
-  </div>
+  </ComPage>
 </template>
+
+<script>
+export default {
+  name: 'Clipboard'
+}
+</script>

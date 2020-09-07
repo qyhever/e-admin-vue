@@ -1,16 +1,11 @@
 <template>
-  <div>
-    <ComUploadImageMultiple v-model="urls" :on-preview="onPreview"></ComUploadImageMultiple>
-    <ComImageViewer ref="imageViewer"></ComImageViewer>
-  </div>
+  <ComPage>
+    qrcode
+  </ComPage>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        urls: []
-      }
-    }
-  }
+export default {
+  name: 'Qrcode'
+}
 </script>

@@ -1,37 +1,21 @@
-import { getUser, setToken, getToken, removeToken, setUser, removeUser } from '@/utils/local'
-import router, { resetRouter, constantRoutes } from '@/router'
-import { generateRoutes, generateBreadByRoutes } from '@/utils/permission'
+import { getToken, setToken, removeToken, getUser, setUser, removeUser } from '@/utils/local'
 
 const state = {
-  info: {},
-  routes: [],
-  accessRoutes: [],
-  bread: {}
+  currentUser: {}
 }
 
 const mutations = {
-  SET_INFO(state, data) {
-    data && setUser(data) // setUser local
-    state.info = data || {}
-  },
-  SET_ROUTES(state, accessedRoutes) {
-    state.addRoutes = accessedRoutes
-    state.routes = constantRoutes.concat(accessedRoutes)
-  },
-  SET_BREAD(state, routes) {
-    state.bread = generateBreadByRoutes(routes)
+  SET_USER(state, data) {
+    state.currentUser = data || {}
   }
 }
 
 const actions = {
-  clearInfo({ commit }) {
+  logout({ commit }) {
     return new Promise(resolve => {
-      commit('SET_INFO', null)
-      commit('SET_BREAD', [])
-      commit('SET_ROUTES', [])
+      commit('SET_USER', {})
       removeUser() // removeUser local
       removeToken() // removeToken local
-      resetRouter()
       resolve()
     })
   },
@@ -41,29 +25,25 @@ const actions = {
     if (!data) {
       const localUser = getUser() // getUser local
       const localToken = getToken() // getToken local
-      if (localUser && localToken && localUser.resources) {
+      if (localUser && localToken && localUser.resources && localUser.resourceCodes) {
         result = {
           userInfo: localUser,
           token: localToken
         }
       } else {
-        return dispatch('clearInfo')
+        return dispatch('logout')
       }
     }
     // 处理用户主动登录
     const { token, userInfo } = result
     return new Promise((resolve, reject) => {
-      // generate accessible routes map based on resources
-      const accessRoutes = generateRoutes(userInfo.resources)
-      if (accessRoutes.length) {
-        router.addRoutes(accessRoutes)
-        commit('SET_ROUTES', accessRoutes)
-        commit('SET_BREAD', accessRoutes)
-        commit('SET_INFO', userInfo)
+      if (userInfo.resources.length) {
+        commit('SET_USER', userInfo)
         setToken(token) // setToken local
+        setUser(userInfo) // setUser local
         resolve()
       } else {
-        dispatch('clearInfo')
+        dispatch('logout')
         reject(new Error('no accessRoutes'))
       }
     })

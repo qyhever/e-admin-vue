@@ -1,7 +1,4 @@
-/**
- * register plugins
- */
-import './global-constant'
-import './global-method'
-import './global-component'
+import './constant'
+import './method'
+import './component'
 import './element'

@@ -1,5 +1,11 @@
 <template>
-  <div>
+  <ComPage isColumn>
     dev
-  </div>
+  </ComPage>
 </template>
+
+<script>
+export default {
+  name: 'Dev'
+}
+</script>

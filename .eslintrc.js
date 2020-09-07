@@ -1,32 +1,19 @@
-// https://eslint.org/docs/user-guide/configuring
-
 module.exports = {
   root: true,
-  parserOptions: {
-    parser: 'babel-eslint',
-    sourceType: 'module'
-  },
   env: {
-    browser: true,
-    es6: true,
     node: true
   },
   extends: [
-    'eslint:recommended',
-    // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
-    // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
-    'plugin:vue/essential'
+    'plugin:vue/essential',
+    'eslint:recommended'
   ],
-  // required to lint *.vue files
-  plugins: [
-    'vue'
-  ],
+  parserOptions: {
+    parser: 'babel-eslint'
+  },
   globals: {
     require: false,
-    AMap: false,
     process: false
   },
-  // add your custom rules here
   rules: {
     /**
      * 代码错误
@@ -70,6 +57,7 @@ module.exports = {
       { 'max': 1 }
     ],
     'semi': ['error', 'never'], // 禁止末尾分号
+    'quotes': ['error', 'single'],
     'space-infix-ops': 2, // 操作符周围必须有空格
     'spaced-comment': ['error', 'always'], // 注释后面必须跟随至少一个空白
 
