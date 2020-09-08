@@ -14,10 +14,10 @@ npm run serve
 #### 构建项目
 
 ```shell
-// 默认打包路由为 history 模式
+# 默认打包路由为 history 模式
 npm run build:test
 npm run build:prod
-// 打包路由为 hash 模式
+# 打包路由为 hash 模式
 npm run build:hash
 ```
 
