@@ -5,6 +5,8 @@
 - [后端服务](https://github.com/qyhever/e-admin-server/)
 - [react版本](https://github.com/qyhever/e-admin-react/)
 
+> 账号: admin 密码: 123456
+
 #### 运行项目
 
 ```shell
