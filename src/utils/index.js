@@ -9,6 +9,19 @@ export const getDocumentTitle = (route) => {
   return 'e-admin'
 }
 
+export const createImageFileInput = () => {
+  return new Promise(resolve => {
+    const input = document.createElement('input')
+    input.setAttribute('type', 'file')
+    input.setAttribute('accept', 'image/*')
+    input.onchange = e => {
+      const file = e.target.files[0]
+      resolve(file)
+    }
+    input.click()
+  })
+}
+
 /**
  * 将一个扁平化的数组转换为树状结构
  * @param {Array} list

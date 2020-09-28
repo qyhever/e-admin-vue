@@ -84,7 +84,7 @@ export default {
   &:hover {
     border-color: #409eff;
   }
-  /deep/ .el-upload {
+  ::v-deep .el-upload {
     position: relative;
     width: 100%;
     height: 100%;

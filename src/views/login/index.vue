@@ -147,7 +147,7 @@ export default {
   }
   .form {
     padding: 50px 120px;
-    /deep/ .el-input__inner {
+    ::v-deep .el-input__inner {
       border-top: 0;
       border-left: 0;
       border-right: 0;
@@ -160,7 +160,7 @@ export default {
     background: linear-gradient(-135deg, #00dbde, #fc00ff);
     border: 0;
   }
-  /deep/ .el-checkbox__label {
+  ::v-deep .el-checkbox__label {
     color: #2c3e50;
   }
 }

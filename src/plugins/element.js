@@ -34,7 +34,8 @@ import {
   RadioButton,
   RadioGroup,
   Image,
-  Tree
+  Tree,
+  Progress
 } from 'element-ui'
 import '@/assets/styles/element-variables.scss'
 
@@ -72,6 +73,7 @@ Vue
   .use(RadioGroup)
   .use(Image)
   .use(Tree)
+  .use(Progress)
 
 Vue.use(Loading.directive)
 

@@ -42,6 +42,33 @@ export const basicRoutes = [
           title: '二维码',
           auth: ['qrcode']
         }
+      },
+      {
+        name: 'richtext',
+        path: '/components/richtext',
+        component: BlankLayout,
+        meta: {
+          title: '富文本',
+          icon: 'smile'
+        },
+        children: [
+          {
+            name: 'tinymce',
+            path: '/components/richtext/tinymce',
+            component: () => import('@/views/base/richtext/tinymce'),
+            meta: {
+              title: 'tinymce'
+            }
+          },
+          {
+            name: 'ckeditor',
+            path: '/components/richtext/ckeditor',
+            component: () => import('@/views/base/richtext/ckeditor'),
+            meta: {
+              title: 'ckeditor'
+            }
+          }
+        ]
       }
     ]
   },

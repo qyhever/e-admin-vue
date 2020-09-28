@@ -1,8 +1,9 @@
 import axios from 'axios'
 import qs from 'qs'
-// import store from '@/store'
 import { Message } from 'element-ui'
 import { getToken } from '@/utils/local'
+import store from '@/store'
+import router from '@/router'
 
 // 根据 VUE_APP_MODE 来切换接口跟路径
 const baseURL = {
@@ -99,7 +100,9 @@ const requestCatchEnd = ({error, loadingCb, showLoading, showError, errorMsg, th
     removePending(error.response.config) // 在请求结束后，移除本次请求
     const { status } = error.response
     if (status === 401) {
-      // ...
+      store.dispatch('user/logout').then(() => {
+        router.replace('/login')
+      })
     }
   }
   // 抛出http错误
