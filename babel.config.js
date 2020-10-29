@@ -3,7 +3,15 @@ module.exports = {
     '@vue/cli-plugin-babel/preset'
   ],
   plugins: [
-    'lodash',
+    [
+      'import',
+      {
+        libraryName: 'lodash',
+        libraryDirectory: '',
+        camel2DashComponentName: false
+      },
+      'lodash'
+    ],
     [
       'component',
       {

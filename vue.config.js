@@ -1,19 +1,19 @@
 const path = require('path')
 const dayjs = require('dayjs')
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 // const isDev = process.env.NODE_ENV === 'development'
 const now = dayjs().format('YYYY-MM-DD HH:mm:ss')
 
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
+const PROT = process.env.PROT || 9020
 module.exports = {
   publicPath: '/e-admin-vue/',
-  outputDir: process.env.IS_GITEE ? 'docs' : 'dist',
+  outputDir: 'dist',
   assetsDir: 'static',
   productionSourceMap: false,
   devServer: {
-    port: 9020,
+    port: PROT,
     overlay: {
       warnings: true,
       errors: true
@@ -21,7 +21,7 @@ module.exports = {
     proxy: {
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       '/server/mock': {
-        target: 'http://localhost:9000',
+        target: 'http://localhost:' + PROT,
         changeOrigin: true,
         pathRewrite: {
           '^/server/mock': '/'
@@ -46,7 +46,6 @@ module.exports = {
   chainWebpack(config) {
     config.plugins.delete('prefetch')
     config.plugins.delete('preload')
-    config.plugin('LodashModuleReplacement').use(LodashModuleReplacementPlugin)
     // set svg-sprite-loader
     config.module
       .rule('svg')
@@ -62,6 +61,7 @@ module.exports = {
       .options({
         symbolId: 'icon-[name]'
       })
+      .end()
 
 
     config.plugin('define').tap((args) => {
