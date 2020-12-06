@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './routes'
-// import BasicLayout from '@/layouts/basic'
+
 Vue.use(VueRouter)
 // 隐藏vue-router在3.0版本控制台错误信息（跳转相同路径会报错）
 const originalPush = VueRouter.prototype.push

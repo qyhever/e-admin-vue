@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.png">
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <% for (var i in htmlWebpackPlugin.options.cdn&&htmlWebpackPlugin.options.cdn.css) { %>
+    <link href="<%= htmlWebpackPlugin.options.cdn.css[i] %>" rel="stylesheet">
+    <% } %>
     <style>
       body>a[title="站长统计"] {
         display: none;
@@ -67,8 +70,11 @@
         </div>
       </div>
     </div>
+    <!-- built files will be auto injected -->
     <script src="//v1.cnzz.com/z_stat.php?id=1278235045&web_id=1278235045"></script>
     <!-- <script src="<%= BASE_URL %>tinymce5.4.2/tinymce.js"></script> -->
-    <!-- built files will be auto injected -->
+    <% for (var i in htmlWebpackPlugin.options.cdn&&htmlWebpackPlugin.options.cdn.js) { %>
+    <script src="<%= htmlWebpackPlugin.options.cdn.js[i] %>"></script>
+    <% } %>
   </body>
 </html>

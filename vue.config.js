@@ -1,14 +1,29 @@
 const path = require('path')
 const dayjs = require('dayjs')
-// const isDev = process.env.NODE_ENV === 'development'
+const isDev = process.env.NODE_ENV === 'development'
 const now = dayjs().format('YYYY-MM-DD HH:mm:ss')
 
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
+const publicPath = '/e-admin-vue/'
 const PROT = process.env.PROT || 9020
+const cdn = {
+  dev: {
+    css: [],
+    js: [
+      publicPath + 'echarts/echarts.js'
+    ]
+  },
+  build: {
+    css: [],
+    js: [
+      publicPath + 'echarts/echarts.min.js'
+    ]
+  }
+}
 module.exports = {
-  publicPath: '/e-admin-vue/',
+  publicPath,
   outputDir: 'dist',
   assetsDir: 'static',
   productionSourceMap: false,
@@ -63,6 +78,10 @@ module.exports = {
       })
       .end()
 
+    config.plugin('html').tap(args => {
+      args[0].cdn = isDev? cdn.dev : cdn.build
+      return args
+    })
 
     config.plugin('define').tap((args) => {
       // DefinePlugin 设置值 必须 JSON 序列化 或者 使用 双引号 包起来

@@ -49,7 +49,8 @@ export const basicRoutes = [
         component: BlankLayout,
         meta: {
           title: '富文本',
-          icon: 'smile'
+          icon: 'smile',
+          auth: ['richtext']
         },
         children: [
           {
@@ -57,7 +58,8 @@ export const basicRoutes = [
             path: '/components/richtext/tinymce',
             component: () => import('@/views/base/richtext/tinymce'),
             meta: {
-              title: 'tinymce'
+              title: 'tinymce',
+              auth: ['tinymce']
             }
           },
           {
@@ -65,7 +67,8 @@ export const basicRoutes = [
             path: '/components/richtext/ckeditor',
             component: () => import('@/views/base/richtext/ckeditor'),
             meta: {
-              title: 'ckeditor'
+              title: 'ckeditor',
+              auth: ['ckeditor']
             }
           }
         ]
