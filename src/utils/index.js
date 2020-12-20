@@ -1,5 +1,15 @@
+import Clipboard from 'clipboard'
+
 export const getRandomStr = () => {
   return new Date().getTime() + Math.random().toString(16).slice(2)
+}
+
+const s4 = () => {
+  return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1)
+}
+
+export const genGuid = () => {
+  return (s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4())
 }
 
 export const getDocumentTitle = (route) => {
@@ -68,4 +78,18 @@ export const getAccessRoutes = (routes, resourceCodes) => {
     }
     return hasPermission(item, resourceCodes)
   })
+}
+
+export const copy = (text, event) => {
+  const clipboard = new Clipboard(event.target, {
+    text: () => text
+  })
+  clipboard.on('success', () => {
+    clipboard.destroy()
+  })
+  clipboard.on('error', (err) => {
+    console.log(err)
+    clipboard.destroy()
+  })
+  clipboard.onClick(event)
 }

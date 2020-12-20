@@ -35,7 +35,8 @@ import {
   RadioGroup,
   Image,
   Tree,
-  Progress
+  Progress,
+  Tag
 } from 'element-ui'
 import '@/assets/styles/element-variables.scss'
 
@@ -74,6 +75,7 @@ Vue
   .use(Image)
   .use(Tree)
   .use(Progress)
+  .use(Tag)
 
 Vue.use(Loading.directive)
 
