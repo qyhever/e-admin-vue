@@ -1,54 +1,15 @@
 <template>
   <ComPage class="page">
     <el-row :gutter="20">
-      <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="6">
+      <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="6" v-for="(item, index) in infoCardList" :key="index">
         <div class="container">
           <div class="icon">
-            <ComSvgIcon name="circle"></ComSvgIcon>
+            <ComSvgIcon :name="item.icon"></ComSvgIcon>
           </div>
           <div class="content">
-            <p class="title">在线评论</p>
+            <p class="title">{{item.title}}</p>
             <p class="value">
-              <CountTo :end="2789" useGroup></CountTo>
-            </p>
-          </div>
-        </div>
-      </el-col>
-      <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="6">
-        <div class="container">
-          <div class="icon">
-            <ComSvgIcon name="team"></ComSvgIcon>
-          </div>
-          <div class="content">
-            <p class="title">新客户</p>
-            <p class="value">
-              <CountTo :end="2534" useGroup></CountTo>
-            </p>
-          </div>
-        </div>
-      </el-col>
-      <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="6">
-        <div class="container">
-          <div class="icon">
-            <ComSvgIcon name="message"></ComSvgIcon>
-          </div>
-          <div class="content">
-            <p class="title">活跃项目</p>
-            <p class="value">
-              <CountTo :end="1273" useGroup></CountTo>
-            </p>
-          </div>
-        </div>
-      </el-col>
-      <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="6">
-        <div class="container">
-          <div class="icon">
-            <ComSvgIcon name="cart"></ComSvgIcon>
-          </div>
-          <div class="content">
-            <p class="title">推荐</p>
-            <p class="value">
-              <CountTo :end="284" useGroup></CountTo>
+              <CountTo :end="item.value" useGroup></CountTo>
             </p>
           </div>
         </div>
@@ -153,6 +114,28 @@ import LineChart from './components/line'
 import ColmunChart from './components/colmun'
 import PieChart from './components/pie'
 import { genGuid, copy } from '@/utils'
+const infoCardList = [
+  {
+    icon: 'circle',
+    title: '在线评论',
+    value: 2789
+  },
+  {
+    icon: 'team',
+    title: '新客户',
+    value: 2534
+  },
+  {
+    icon: 'message',
+    title: '活跃项目',
+    value: 1273
+  },
+  {
+    icon: 'cart',
+    title: '推荐',
+    value: 284
+  }
+]
 const userList = [
   {
     name: 'Louis Hansen',
@@ -216,7 +199,8 @@ export default {
   data() {
     return {
       userList,
-      orderList
+      orderList,
+      infoCardList
     }
   },
   computed: {

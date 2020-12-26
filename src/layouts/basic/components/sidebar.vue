@@ -16,8 +16,8 @@
         <MenuItem :menus="menus"></MenuItem>
       </el-menu>
     </el-scrollbar>
-    <div class="toggle-theme">
-      <div v-show="!collapse" class="toggle-theme-left">
+    <div class="toggle-theme" v-show="!collapse">
+      <div class="toggle-theme-left">
         <ComSvgIcon name="bulb"></ComSvgIcon>
         <span class="toggle-theme-text">切换主题</span>
       </div>

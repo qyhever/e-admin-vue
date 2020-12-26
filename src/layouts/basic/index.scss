@@ -138,6 +138,8 @@ $sidebar-bg-color: #001529;
       align-items: center;
       padding: 0 16px;
       color: #666;
+      white-space: nowrap;
+      animation: fadeLeftIn .5s linear;
       .el-switch__label {
         color: #666;
         &.is-active {
@@ -226,4 +228,15 @@ $sidebar-bg-color: #001529;
 .el-menu.el-menu--popup {
   background-color: $sidebar-bg-color;
   @include menu-item();
+}
+
+@keyframes fadeLeftIn {
+  0% {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
