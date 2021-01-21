@@ -1,4 +1,5 @@
 import Clipboard from 'clipboard'
+const AMap = window.AMap
 
 export const getRandomStr = () => {
   return new Date().getTime() + Math.random().toString(16).slice(2)
@@ -92,4 +93,27 @@ export const copy = (text, event) => {
     clipboard.destroy()
   })
   clipboard.onClick(event)
+}
+
+export function queryLocalCity() {
+  return new Promise((resolve, reject) => {
+    const citysearch = new AMap.CitySearch()
+    citysearch.getLocalCity()
+    AMap.event.addListener(citysearch, 'complete', result => {
+      if (result.info === 'OK') {
+        const data = {
+          province: result.province,
+          city: result.city,
+          adcode: result.adcode
+        }
+        resolve(data)
+      } else {
+        reject(result)
+      }
+    })
+    AMap.event.addListener(citysearch, 'err', err => {
+      console.log('err', err)
+      reject(err)
+    })
+  })
 }

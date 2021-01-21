@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-
+import './utils/visit'
 import './router/permission'
 import './plugins'
 import './assets/styles/index.scss'

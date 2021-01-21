@@ -42,36 +42,36 @@ export const basicRoutes = [
           title: '二维码',
           auth: ['qrcode']
         }
+      }
+    ]
+  },
+  {
+    name: 'richtext',
+    path: '/richtext',
+    component: BlankLayout,
+    meta: {
+      title: '富文本',
+      icon: 'edit',
+      auth: ['richtext']
+    },
+    children: [
+      {
+        name: 'tinymce',
+        path: '/richtext/tinymce',
+        component: () => import('@/views/richtext/tinymce'),
+        meta: {
+          title: 'tinymce',
+          auth: ['tinymce']
+        }
       },
       {
-        name: 'richtext',
-        path: '/components/richtext',
-        component: BlankLayout,
+        name: 'ckeditor',
+        path: '/richtext/ckeditor',
+        component: () => import('@/views/richtext/ckeditor'),
         meta: {
-          title: '富文本',
-          icon: 'smile',
-          auth: ['richtext']
-        },
-        children: [
-          {
-            name: 'tinymce',
-            path: '/components/richtext/tinymce',
-            component: () => import('@/views/base/richtext/tinymce'),
-            meta: {
-              title: 'tinymce',
-              auth: ['tinymce']
-            }
-          },
-          {
-            name: 'ckeditor',
-            path: '/components/richtext/ckeditor',
-            component: () => import('@/views/base/richtext/ckeditor'),
-            meta: {
-              title: 'ckeditor',
-              auth: ['ckeditor']
-            }
-          }
-        ]
+          title: 'ckeditor',
+          auth: ['ckeditor']
+        }
       }
     ]
   },
