@@ -1,5 +1,5 @@
+const callbacks = []
 const asyncLoadScript = (src, existVariable, callback) => {
-  const callbacks = []
   const existingScript = document.getElementById(src)
   const cb = callback || function() {} // eslint-disable-line
 
